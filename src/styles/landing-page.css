@@ -1,0 +1,359 @@
+/* ========== CERITA BUDAYA ========== */
+.cerita-budaya {
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+}
+
+.judul-seksi {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.grid-kartu-budaya {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+}
+
+.kartu-budaya {
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.kartu-budaya img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.kartu-budaya h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0.75rem 0 0.5rem 0;
+}
+
+.kartu-budaya p {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* ========== KENAPA HARUS CERITA BUDAYA ========== */
+.alasan-cerita {
+  padding-bottom: 1rem;
+  padding-top: 3rem;
+}
+
+.alasan-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch; /* agar gambar dan teks sejajar tingginya */
+  gap: 5rem;
+}
+
+.alasan-teks h2 {
+  font-size: 1.75rem;
+  /* font-weight: 700; */
+  margin-bottom: 1.5rem;
+}
+
+.alasan-item {
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+}
+
+.alasan-item h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.alasan-item p {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Bungkus gambar dan alas */
+.alasan-gambar-wrapper {
+  position: relative;
+  display: flex;
+
+  justify-content: center;
+  align-items: stretch;
+  height: 100%;
+}
+
+.alasan-gambar-wrapper::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%; /* tinggi alas */
+  background-color: #f3d8b4;
+  border-radius: 16px;
+  z-index: 0;
+}
+
+.alasan-gambar-wrapper img {
+  max-width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 16px;
+  padding-bottom: 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .alasan-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .alasan-gambar {
+    order: +1;
+  }
+
+  .alasan-gambar-wrapper {
+    margin-top: 1rem;
+  }
+
+  .alasan-gambar-wrapper::before {
+    border-radius: 12px;
+  }
+
+  .alasan-gambar-wrapper img {
+    border-radius: 12px;
+  }
+}
+
+
+/* Login */
+.alas_login {
+  display: flex;
+  justify-content: center;
+  /* padding: 2rem 1rem; */
+  margin-top: 3rem;
+  background-color: #fff;
+}
+
+.wrapper_login {
+  background-color: #f3d8b4;
+  border-radius: 12px;
+  padding: 5rem;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  background-image: none;
+  max-width: auto; 
+}
+
+.form_box {
+  background-color: #ffffff; /* Lebih terang dari wrapper_login */
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
+  max-width: 450px;
+  margin: 0 auto; /* Tengah */
+}
+
+
+.wrapper_login h1 {
+  margin-bottom: 1.5rem;
+  color: #4a2e0d;
+}
+
+/* Batasi lebar form agar input dan tombol tidak terlalu besar */
+.wrapper_login form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.wrapper_login form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.wrapper_login form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #9a5520;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.wrapper_login form button:hover {
+  background-color: #7a4318;
+}
+
+.wrapper_login form p {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.wrapper_login form a {
+  font-weight: bold;
+  color: #000;
+  text-decoration: none;
+}
+
+/* Responsif */
+@media screen and (max-width: 768px) {
+  .wrapper_login {
+    padding: 1.5rem;
+  }
+
+  .alas_login {
+    padding: 2rem 1rem;
+    margin-top: 2rem;
+  }
+}
+
+
+
+
+
+/* kontak kami */
+.kontak-kami {
+  padding: 4rem 1rem;
+  /* background-color: #f9f9f9; */
+}
+
+.kontak-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.kontak-form {
+  flex: 1 1 500px;
+}
+
+.kontak-form h2 {
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.kontak-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-row input {
+  flex: 1;
+}
+
+.kontak-form input,
+.kontak-form textarea {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.kontak-form button {
+  padding: 0.75rem;
+  background-color: #b36a34;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.kontak-info {
+  flex: 1 1 250px;
+  /* margin-top: 2rem; */
+}
+
+.kontak-info h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.kontak-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.kontak-info li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 0;
+}
+
+
+/* visi misi */
+.visi-misi {
+  padding: 1rem 1rem;
+  background-color: #fff;
+}
+
+.visi-misi-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.visi-misi-content {
+  background-color: #e9e9e9;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.visi-misi-content h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.visi, .misi {
+  margin-bottom: 2rem;
+}
+
+.visi h3, .misi h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: #b36a34;
+}
+
+.misi ul {
+  padding-left: 1.2rem;
+  list-style-type: disc;
+}
+
+.misi ul li {
+  margin-bottom: 0.5rem;
+}
+
+
+
+

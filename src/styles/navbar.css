@@ -1,0 +1,87 @@
+/* CSS untuk pengaturan navbar (navigasi utama) */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  /* CSS untuk logo di navbar */
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  /* CSS untuk gambar logo di navbar */
+  .logo img {
+    height: 48px;
+  }
+  
+  /* CSS untuk teks logo di navbar */
+  .logo-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  /* CSS untuk pengaturan link di navbar */
+  .navbar-link {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  /* CSS untuk pengaturan link di navbar */
+  .navbar-link a {
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  /* CSS saat hover pada link navbar */
+  .navbar-link a:hover {
+    color: #9c6b3b;
+  }
+  
+  /* CSS untuk menu toggle (ikon hamburger) pada layar kecil */
+  .menu-toggle {
+    display: none;
+  }
+  
+  /* CSS untuk tombol hamburger (menu navigasi di layar kecil) */
+  .hamburger {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+  
+
+
+  /* Untuk header tetap di atas */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Tambahkan padding-top sesuai tinggi header */
+#landing-page {
+  padding-top: 70px; /* Atur sesuai tinggi header aslinya, biasanya antara 60-80px */
+}
+
+/* Untuk mengatur ulang spacing di mode mobile */
+@media (max-width: 768px) {
+  .hero {
+    margin-top: 0; /* Atau sesuaikan */
+    padding-top: 1rem;
+  }
+}
+
+
+  

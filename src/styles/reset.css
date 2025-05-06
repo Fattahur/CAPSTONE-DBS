@@ -1,0 +1,20 @@
+
+/* CSS global untuk semua elemen */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* CSS untuk gambar */
+  img {
+    max-width: 100%;
+    display: block;
+  }
+  
+  /* CSS untuk link (a) */
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  

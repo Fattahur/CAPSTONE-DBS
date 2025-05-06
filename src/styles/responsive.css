@@ -1,0 +1,81 @@
+/* Media query untuk tampilan dengan lebar maksimal 768px (untuk perangkat mobile) */
+@media (max-width: 768px) {
+  
+  /* Mengubah layout grid pada hero section, menjadi satu kolom */
+  .hero-grid {
+      grid-template-columns: 1fr;  
+  }
+
+  /* Mengubah layout gambar di hero section menjadi kolom */
+  .hero-images {
+      flex-direction: column;  
+      order: -1;  
+  }
+
+  /* Memindahkan teks hero ke atas gambar */
+  .hero-text {
+      order: 1;  
+  }
+
+  /* Menyesuaikan ukuran gambar agar responsif di layar kecil */
+  .hero-images .main-img img,
+  .hero-images .side-imgs img {
+      aspect-ratio: auto;  
+      height: auto;  
+  }
+
+  /* Mengubah ukuran font judul pada hero section */
+  .hero-text h1 {
+      font-size: 1.75rem;  
+  }
+
+  /* Mengubah ukuran font paragraf pada hero section */
+  .hero-text p {
+      font-size: 0.95rem;  
+  }
+
+  /* Mengubah ukuran dan padding tombol explore */
+  .btn-explore {
+      padding: 0.6rem 1.5rem;  
+      font-size: 0.95rem;  
+  }
+
+  /* Mengubah layout navbar link menjadi kolom */
+  .navbar-link {
+      flex-direction: column; 
+      gap: 1rem;  
+      margin-top: 1rem;  
+      width: 100%;  
+  }
+
+  /* Menampilkan tombol hamburger pada tampilan mobile */
+  .hamburger {
+      display: block; 
+  }
+
+  /* Menyembunyikan link navbar pada tampilan mobile */
+  .navbar-link {
+      display: none;  
+  }
+
+  /* Menampilkan navbar link ketika menu toggle dicentang */
+  .menu-toggle:checked + .hamburger + .navbar-link {
+      display: flex;  
+  }
+}
+
+/* card responsive budaya */
+@media (max-width: 768px) {
+    .grid-kartu-budaya {
+      grid-template-columns: 1fr;
+    }
+  
+    .kartu-budaya img {
+      aspect-ratio: auto;
+      height: auto;
+    }
+  }
+  
+
+  
+  
