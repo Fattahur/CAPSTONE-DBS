@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <title>Cerita Nusantara</title>
 </head>
@@ -13,34 +14,39 @@
   <header class="header">
     <div class="container">
       <nav class="navbar" role="navigation" aria-label="Navigasi utama">
+  
         <div class="logo" style="cursor: pointer;">
           <img src="images/logo.png" alt="Logo Cerita Nusantara">
           <span class="logo-text">Cerita Nusantara</span>
         </div>
-
+  
         <div class="navbar-link">
-          <a href="#budaya">Budaya</a>
-          <a href="#sorotan">Sorotan</a>
+          <a href="#beranda">Beranda</a>
+          <a href="#sorotan_budaya">Sorotan Budaya</a>
           <a href="#keunggulan">Keunggulan</a>
           <a href="#tentang_kami">Tentang Kami</a>
           <a href="#visi_misi">Visi Misi</a>
+          <a href="#login.html" class="btn-login-navbar">Login</a>
         </div>
-
-        <div class="navbar-arter-login" id="navbar-arter-login">
-          <!-- Login/Logout -->
-        </div>
-
+  
+        <!-- Hamburger button dengan animasi -->
         <button class="hamburger" aria-label="Menu Navigasi">
-          <i class="fas fa-bars"></i>
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
+  
       </nav>
     </div>
   </header>
+  
 
   <div id="landing-page">
     <main id="main-content">
       
-      <section class="hero">
+      <section class="beranda" id="beranda">
+        
+
         <div class="container hero-grid">
           <div class="hero-text">
             <h1>Keindahan<br>
@@ -60,7 +66,7 @@
         </div>
       </section>
 
-      <section class="cerita-budaya" id="budaya" aria-label="Cerita Budaya Nusantara">
+      <section class="cerita-budaya" id="sorotan_budaya">
         <div class="container">
           <h2 class="judul-seksi">Cerita Budaya</h2>
           <div class="grid-kartu-budaya">
@@ -111,25 +117,35 @@
         </div>
       </section>
 
-      <section class="alas_login">
+      <section class="alas_login" id="login.html">
         <div class="container">
           <div class="wrapper_login">
-            
-            <div class="form_box"> <!-- Alas tambahan -->
-              <form>
-                <h1>Login</h1>
+            <div class="form_box" id="form-box">
+
+              <!-- Form Login -->
+              <form id="login-form" class="active">
+                <h1>Sign In</h1>
                 <input type="email" placeholder="Email" required />
                 <input type="password" placeholder="Kata Sandi" required />
                 <button type="submit">Masuk</button>
-                <p>Belum punya akun? <a href="#">Daftar di sini</a></p>
+                <p>Belum punya akun? <a href="#" id="show-signup">Daftar di sini</a></p>
               </form>
+
+              <!-- Form Sign Up -->
+              <form id="signup-form">
+                <h1>Sign Up</h1>
+                <input type="text" placeholder="Nama Lengkap" required />
+                <input type="email" placeholder="Email" required />
+                <input type="password" placeholder="Kata Sandi" required />
+                <button type="submit">Daftar</button>
+                <p>Sudah punya akun? <a href="#" id="show-login">Masuk di sini</a></p>
+              </form>
+
             </div>
           </div>
         </div>
       </section>
       
-      
-
       <section class="kontak-kami" id="tentang_kami">
         <div class="container alasan-grid">
           <div class="kontak-form">

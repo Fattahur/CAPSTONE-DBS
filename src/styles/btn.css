@@ -1,0 +1,61 @@
+/* tombol eksplorasi di dalam hero */
+.btn-explore {
+    background-color: #9c6b3b;
+    border-radius: 999px;
+    color: white;
+    padding: 0.75rem 2rem;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  
+  .btn-explore:hover {
+    background-color: #7e5229;
+  }
+  /* tombol eksplorasi di dalam hero */
+
+  /* btn login di navbar*/
+  .btn-login-navbar {
+    background-color: #9c6b3b;
+    color: rgb(255, 255, 255);
+    padding: 8px 16px;
+    border-radius: 7px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-login-navbar:hover {
+    background-color: #7e5229;
+  }
+  /* btn login di navbar*/
+
+/* btn login dan register di form sign in & sign up*/
+  .wrapper_login form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #9a5520;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .wrapper_login form button:hover {
+    background-color: #7a4318;
+  }
+/* btn login dan register di form sign in & sign up*/
+
+/* btn untuk sumbit email di form kontak kami */
+  .kontak-form button {
+    padding: 0.75rem;
+    background-color: #b36a34;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  /* btn untuk sumbit email di form kontak kami */

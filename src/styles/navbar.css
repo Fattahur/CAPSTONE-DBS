@@ -1,87 +1,188 @@
-/* CSS untuk pengaturan navbar (navigasi utama) */
+/* ====================================
+   NAVBAR DESKTOP
+==================================== */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  
-  /* CSS untuk logo di navbar */
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  /* CSS untuk gambar logo di navbar */
-  .logo img {
-    height: 48px;
-  }
-  
-  /* CSS untuk teks logo di navbar */
-  .logo-text {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #333;
-  }
-  
-  /* CSS untuk pengaturan link di navbar */
-  .navbar-link {
-    display: flex;
-    gap: 1.5rem;
-  }
-  
-  /* CSS untuk pengaturan link di navbar */
-  .navbar-link a {
-    color: #333;
-    font-weight: 500;
-    transition: color 0.3s;
-  }
-  
-  /* CSS saat hover pada link navbar */
-  .navbar-link a:hover {
-    color: #9c6b3b;
-  }
-  
-  /* CSS untuk menu toggle (ikon hamburger) pada layar kecil */
-  .menu-toggle {
-    display: none;
-  }
-  
-  /* CSS untuk tombol hamburger (menu navigasi di layar kecil) */
-  .hamburger {
-    display: none;
-    font-size: 2rem;
-    cursor: pointer;
-    background: none;
-    border: none;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
 
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-  /* Untuk header tetap di atas */
+.logo img {
+  height: 48px;
+}
+
+.logo-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #000;
+}
+
+.navbar-link {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navbar-link a {
+  color: #000;
+  font-weight: 500;
+  transition: color 0.3s;
+  text-decoration: none;
+}
+
+.navbar-link a:hover {
+  color: #9c6b3b;
+}
+
+/* Tombol login khusus di navbar */
+.navbar-link a.btn-login-navbar {
+  background-color: #9c6b3b;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 7px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-link a.btn-login-navbar:hover {
+  background-color: #7e5229;
+}
+
+/* ====================================
+   HEADER STICKY & SCROLL SETTINGS
+==================================== */
 .header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: white;
+  background-color: #fff;
   z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Tambahkan padding-top sesuai tinggi header */
 #landing-page {
-  padding-top: 70px; /* Atur sesuai tinggi header aslinya, biasanya antara 60-80px */
+  padding-top: 70px;
 }
 
-/* Untuk mengatur ulang spacing di mode mobile */
+html {
+  scroll-behavior: smooth;
+}
+
+section {
+  scroll-margin-top: 100px;
+}
+
+/* ====================================
+   HAMBURGER ANIMATED (MOBILE)
+==================================== */
+.hamburger {
+  width: 30px;
+  height: 24px;
+  position: relative;
+  display: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  background: #333;
+  border-radius: 3px;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: all 0.3s ease-in-out;
+}
+
+.hamburger span:nth-child(1) {
+  top: 0px;
+}
+
+.hamburger span:nth-child(2) {
+  top: 10px;
+}
+
+.hamburger span:nth-child(3) {
+  top: 20px;
+}
+
+/* Animasi saat hamburger aktif */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg);
+  top: 10px;
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+  left: -30px;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg);
+  top: 10px;
+}
+
+/* ====================================
+   NAVBAR MOBILE
+==================================== */
 @media (max-width: 768px) {
-  .hero {
-    margin-top: 0; /* Atau sesuaikan */
-    padding-top: 1rem;
+  .navbar {
+    text-align: left;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .navbar-link {
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #eeeded;
+    padding: 1rem;
+    gap: 1rem;
+    display: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(-20px); /* Mulai lebih tinggi */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out; /* Lebih lama dan halus */
+    z-index: 999;
+  }
+
+  .navbar-link a.btn-login-navbar {
+    margin-top: 0.5rem;
+  }
+
+  .navbar-link.active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(2); /* Bergerak ke posisi semula */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out; /* Pastikan transisi sama */
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .navbar-link a {
+    width: 100%;             
+    padding-left: 0.5rem;    
   }
 }
 
 
-  

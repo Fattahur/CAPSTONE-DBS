@@ -138,9 +138,7 @@
 .alas_login {
   display: flex;
   justify-content: center;
-  /* padding: 2rem 1rem; */
   margin-top: 3rem;
-  background-color: #fff;
 }
 
 .wrapper_login {
@@ -150,29 +148,50 @@
   text-align: center;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   width: 100%;
-  background-image: none;
-  max-width: auto; 
 }
 
 .form_box {
-  background-color: #ffffff; /* Lebih terang dari wrapper_login */
-  padding: 1.5rem;
+  background-color: #ffffff;
+  
   border-radius: 8px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
   max-width: 450px;
-  margin: 0 auto; /* Tengah */
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  height: 350px; /* pastikan cukup menampung kedua form */
 }
-
 
 .wrapper_login h1 {
   margin-bottom: 1.5rem;
   color: #4a2e0d;
 }
 
-/* Batasi lebar form agar input dan tombol tidak terlalu besar */
 .wrapper_login form {
-  max-width: 400px;
-  margin: 0 auto;
+  position: absolute;
+  top: 0;
+  padding: 1.5rem;
+  width: 100%;
+  transition: all 0.5s ease;
+  opacity: 0;
+  transform: translateX(100%);
+  z-index: 1;
+}
+
+.wrapper_login form.active {
+  opacity: 1;
+  transform: translateX(0);
+  z-index: 2;
+}
+
+.wrapper_login form.exit-left {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.wrapper_login form.exit-right {
+  opacity: 0;
+  transform: translateX(100%);
 }
 
 .wrapper_login form input {
@@ -185,22 +204,7 @@
   box-sizing: border-box;
 }
 
-.wrapper_login form button {
-  width: 100%;
-  padding: 10px;
-  background-color: #9a5520;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
 
-.wrapper_login form button:hover {
-  background-color: #7a4318;
-}
 
 .wrapper_login form p {
   margin-top: 1rem;
@@ -213,20 +217,33 @@
   text-decoration: none;
 }
 
-/* Responsif */
 @media screen and (max-width: 768px) {
   .wrapper_login {
     padding: 1.5rem;
   }
 
-  .alas_login {
-    padding: 2rem 1rem;
-    margin-top: 2rem;
+  .form_box {
+    height: 450px; /* lebih tinggi agar animasi tetap muat */
+    overflow: hidden; /* tetap diperlukan agar tidak bocor */
+  }
+
+  /* Tetap gunakan posisi absolute + transform */
+  .wrapper_login form {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 1.5rem;
+    transition: all 0.5s ease;
+  }
+
+  .wrapper_login form:not(.active) {
+    opacity: 0;
+    pointer-events: none;
   }
 }
 
 
-
+/* login */
 
 
 /* kontak kami */
@@ -277,19 +294,8 @@
   width: 100%;
 }
 
-.kontak-form button {
-  padding: 0.75rem;
-  background-color: #b36a34;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
 .kontak-info {
   flex: 1 1 250px;
-  /* margin-top: 2rem; */
 }
 
 .kontak-info h3 {
