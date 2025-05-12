@@ -1,0 +1,28 @@
+  
+  .toast {
+    background-color: #4BB543;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin-top: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeOut 4s ease forwards;
+  }
+  
+  .toast_gagal {
+    background-color: #ec0000;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin-top: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeOut 4s ease forwards;
+  }
+  
+  
+  @keyframes fadeOut {
+    0% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-20px); }
+  }
+  

@@ -59,3 +59,37 @@
     cursor: pointer;
   }
   /* btn untuk sumbit email di form kontak kami */
+
+/* Styling untuk tombol Back */
+  .back-button {
+    background-color: white;
+    border: none;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    position: absolute;
+    top: 20px; 
+    left: 20px; 
+  }
+
+  .back-button i {
+    font-size: 20px; 
+    color: #333;
+    font-weight: bold; 
+  }
+
+
+  .alas_login {
+    position: relative;
+    padding-top: 60px; 
+  }
+/* Styling untuk tombol Back */
+
+
+
+
+
+  
+  

@@ -1,5 +1,4 @@
 @import './reset.css';
-@import './base.css';
 @import './skip-to-content.css';
 @import './header.css';
 @import './navbar.css';
@@ -7,4 +6,6 @@
 @import './responsive.css';
 @import './landing-page.css';
 @import './footer.css';
-@import './btn.css'
+@import './btn.css';
+@import './notifikasi.css';
+

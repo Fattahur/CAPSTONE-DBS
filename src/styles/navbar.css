@@ -56,6 +56,41 @@
 }
 
 /* ====================================
+   NAVBAR DESKTOP - WITH UNDERLINE ANIMATION
+==================================== */
+
+.navbar-link a:not(.btn-login-navbar) {
+  position: relative;
+  padding-bottom: 5px; /* Ruang untuk underline */
+}
+
+/* Animasi underline */
+.navbar-link a:not(.btn-login-navbar)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #9c6b3b;
+  transition: width 0.3s ease;
+}
+
+.navbar-link a:not(.btn-login-navbar):hover::after {
+  width: 100%;
+}
+
+/* Style untuk link aktif */
+.navbar-link a:not(.btn-login-navbar).active {
+  color: #9c6b3b;
+}
+
+.navbar-link a:not(.btn-login-navbar).active::after {
+  width: 100%;
+  background-color: #7e5229;
+}
+
+/* ====================================
    HEADER STICKY & SCROLL SETTINGS
 ==================================== */
 .header {
@@ -67,6 +102,7 @@
   z-index: 1000;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 
 #landing-page {
   padding-top: 70px;
@@ -153,7 +189,7 @@ section {
     top: 100%;
     left: 0;
     width: 100%;
-    background-color: #eeeded;
+    background-color: #f5f5f5;
     padding: 1rem;
     gap: 1rem;
     display: none;
@@ -171,8 +207,8 @@ section {
   .navbar-link.active {
     display: flex;
     opacity: 1;
-    transform: translateY(2); /* Bergerak ke posisi semula */
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out; /* Pastikan transisi sama */
+    transform: translateY(1); /* Bergerak ke posisi semula */
+    transition: opacity 0.2s ease-out, transform 0.3s ease-out; 
   }
 
   .hamburger {
