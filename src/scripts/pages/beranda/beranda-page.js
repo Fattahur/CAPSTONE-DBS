@@ -3,31 +3,26 @@ import { html, render } from 'lit-html';
 const BerandaPage = {
   async render(container) {
     const template = html`
-
-
-
       <section class="hero">
-  <div class="container hero-overlay">
-    <h1>
-      Temukan Cerita<br />
-      Budaya dari Seluruh<br />
-      Nusantara
-    </h1>
-    <button class="cta-button">Jelajahi Sekarang</button>
-    <div
-      class="scroll-indicator"
-      @click=${() =>
-        document.querySelector('.section')?.scrollIntoView({ behavior: 'smooth' })}
-    >
-      &#x25BC;
-    </div>
-  </div>
-</section>
+        <div class="container hero-overlay">
+          <h1>
+            Temukan Cerita<br />
+            Budaya dari Seluruh<br />
+            Nusantara
+          </h1>
+          <button class="cta-button">Jelajahi Sekarang</button>
+          <div
+            class="scroll-indicator"
+            @click=${() =>
+              document.querySelector('.section')?.scrollIntoView({ behavior: 'smooth' })}
+          >
+            &#x25BC;
+          </div>
+        </div>
+      </section>
 
-
-      
       <section class="section">
-        <div class="container">
+        <div class="container-beranda">
           <h2>Cerita Populer</h2>
           <div class="grid-3">
             ${[
@@ -51,16 +46,18 @@ const BerandaPage = {
       </section>
 
       <section class="section">
-        <div class="container">
-          <h2>Cerita Mingguan</h2>
-          <div class="filter-bar">
-            <button class="active">Tari</button>
-            <button>Candi</button>
-            <button>Upacara</button>
+        <div class="container-beranda">
+          <div class="section-header">
+            <h2>Cerita Mingguan</h2>
+            <div class="filter-bar">
+              <button class="active">Tari</button>
+              <button>Candi</button>
+              <button>Upacara</button>
+            </div>
           </div>
           <div class="grid-3">
             ${[
-              'images/borobudur.jpg',
+              'images/upacara.jpg',
               'images/borobudur.jpg',
               'images/borobudur.jpg',
               'images/borobudur.jpg',
