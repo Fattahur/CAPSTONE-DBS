@@ -24,19 +24,18 @@ const CeritaBudayaPage = {
         <!-- Bagian Terpopuler -->
         <section class="terpopuler">
           <div class="terpopuler-img">
-            <img src="images/dayak.jpg" alt="Cerita Terpopuler" />
+            <img class="img-square" src="images/dayak.jpg" alt="Cerita Terpopuler" />
           </div>
         </section>
 
         <!-- Cerita Terbaru -->
         <section class="terbaru">
-          <h2>Cerita Terbaru</h2>
-          <div class="video-grid">
+          <h2>Cerita Budaya Terbaru</h2>
+          <div class="gambar-grid">
             ${[1, 2, 3].map(
               () => html`
-                <div class="video-card">
-                  <img src="images/dayak.jpg" alt="Cerita Video" />
-                  <div class="play-btn">▶</div>
+                <div class="gambar-card">
+                  <img class="img-square" src="images/dayak.jpg" alt="Cerita Budaya Terbaru" />
                 </div>
               `
             )}
@@ -50,7 +49,7 @@ const CeritaBudayaPage = {
             ${[1, 2, 3, 4].map(
               () => html`
                 <div class="card">
-                  <img src="images/dayak.jpg" alt="Cerita Budaya" />
+                  <img class="img-square" src="images/dayak.jpg" alt="Cerita Budaya" />
                   <h3>Cerita Budaya</h3>
                   <p class="desc">Deskripsi cerita budaya singkat...</p>
                   <p class="lokasi">Indonesia</p>
@@ -74,7 +73,7 @@ const CeritaBudayaPage = {
   },
 
   async afterRender(container) {
-    // Nanti bisa tambahkan filter dan search interaktif di sini
+    // Tambahkan logika pencarian/filter jika dibutuhkan
   },
 };
 
