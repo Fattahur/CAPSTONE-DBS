@@ -6,7 +6,8 @@ const CeritaBudayaPage = {
       <main class="cerita-container">
         <!-- Bagian Top Bar -->
         <section class="top-bar">
-          <h2>Cerita Terpopuler</h2>
+          <div class= "jdl-cerita-terpopuler">
+            Cerita Terpopuler </div>
           <div class="search-filter-wrapper">
             <input
               type="text"
@@ -30,7 +31,9 @@ const CeritaBudayaPage = {
 
         <!-- Cerita Terbaru -->
         <section class="terbaru">
-          <h2>Cerita Budaya Terbaru</h2>
+          <div class="jdl-rekomendasi">
+          Cerita Budaya Terbaru
+          </div>
           <div class="gambar-grid">
             ${[1, 2, 3].map(
               () => html`
@@ -44,13 +47,19 @@ const CeritaBudayaPage = {
 
         <!-- Rekomendasi Cerita -->
         <section class="rekomendasi">
-          <h2>Rekomendasi</h2>
+
+        <div class="jdl-rekomendasi">
+          Rekomendasi
+        </div>
+
           <div class="rekomendasi-grid">
             ${[1, 2, 3, 4].map(
               () => html`
-                <div class="card">
-                  <img class="img-square" src="images/dayak.jpg" alt="Cerita Budaya" />
-                  <h3>Cerita Budaya</h3>
+                <div class="card-rekomendasi">
+                  <img class="img-square" src="images/dayak.jpg"  />
+                  
+                  <p class="judul-cerita">Cerita Budaya</p>
+
                   <p class="desc">Deskripsi cerita budaya singkat...</p>
                   <p class="lokasi">Indonesia</p>
                   <div class="actions">

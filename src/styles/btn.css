@@ -189,7 +189,7 @@ padding-left: 1rem;
 }
 
 .card p {
-/* padding: 0 1rem 1rem; */
+padding: 0 1rem 1rem;
 color: #555;
 text-align: left;
 }
@@ -237,13 +237,9 @@ gap: 1rem;
 
 
 
-
-
-
 /* page cerita budaya */
-
 .cerita-container {
-  max-width: 1200px;
+max-width: 1200px;
 margin: 0 auto;
 padding: 1rem;
 margin-top: 1rem;
@@ -296,29 +292,48 @@ margin-top: 1rem;
   display: block;
 }
 
-.card {
+.card-rekomendasi {
   background: #fff;
   border-radius: 16px;
-  /* padding: 1rem; */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
 }
 
-.card h3 {
-  margin-top: 0.75rem;
-  font-size: 1.1rem;
+.jdl-cerita-terpopuler {
+  font-size: 1.7rem;
   font-weight: 600;
+  /* margin: 1rem 0 1rem; */
 }
 
-.card .desc {
+.jdl-rekomendasi {
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem;
+}
+
+.jdl-rekomendasi {
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem;
+}
+
+.judul-cerita{
+  font-size: 1.2rem;
+  color: #000000;
+  font-style: bold;
+  margin-top: 1rem;
+  padding-left: 1rem;
+}
+
+.desc{
   font-size: 0.9rem;
   color: #555;
   margin: 0.25rem 0;
   padding-left: 1rem;
 }
 
-.card .lokasi {
+ .lokasi {
   font-size: 0.85rem;
   color: #888;
   padding-left: 1rem;
@@ -328,7 +343,7 @@ margin-top: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: auto;
+  margin-top: 1.5rem;
   padding-top: 0.75rem;
 }
 
@@ -348,4 +363,17 @@ margin-top: 1rem;
   margin-left: 8px;
   font-size: 1.1rem;
   cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+.gambar-grid,
+.rekomendasi-grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.jdl-cerita-terpopuler{
+  font-size: 1.5rem;
+  margin: 2rem 0 1rem;
+}
 }
