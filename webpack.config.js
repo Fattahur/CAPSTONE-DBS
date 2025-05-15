@@ -58,7 +58,7 @@ module.exports = {
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'public', to: '.' }, // copy seluruh folder `public` ke root dist
+        { from: 'public', to: '.' }, 
       ],
     }),
   ],
