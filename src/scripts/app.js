@@ -7,8 +7,6 @@ import 'aos/dist/aos.css';
 
 AOS.init();
 
-
-
 // Mengecek jika sudah login dan hash kosong, arahkan ke #/beranda
 if (localStorage.getItem('isLoggedIn') === 'true' && window.location.hash === '') {
   window.location.hash = '#/beranda';
