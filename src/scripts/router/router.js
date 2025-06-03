@@ -4,7 +4,9 @@ import BerandaPage from "../pages/beranda/beranda-page.js";
 import CeritaBudayaPage from "../pages/cerita-budaya/ceritabudaya-page.js";
 import JelajahPage from "../pages/jelajah/jelajah-page.js";
 import RingkasanPage from "../pages/ringkasan/ringkasan-page.js";
-import AdminPage from "../pages/admin/admin-page.js";
+import AdminPage from "../pages/admin/dashboard/admin-page.js";
+import ManajemenPage from "../pages/admin/manajemen/manajemen-page.js";
+
 
 
 const routes = {
@@ -16,6 +18,7 @@ const routes = {
   "#/jelajah": JelajahPage, // halaman jelajah
   "#/ringkasan": RingkasanPage, // halaman ringkasan
   "#/admin": AdminPage,
+  "#/manajemen": ManajemenPage,
 };
 
 export const renderPage = async () => {
