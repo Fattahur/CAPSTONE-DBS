@@ -5,9 +5,8 @@ import './router/router.js';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+
 AOS.init();
-
-
 
 // Mengecek jika sudah login dan hash kosong, arahkan ke #/beranda
 if (localStorage.getItem('isLoggedIn') === 'true' && window.location.hash === '') {

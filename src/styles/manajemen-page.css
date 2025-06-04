@@ -1,0 +1,81 @@
+.manajemen-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  padding: 1rem;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.manajemen-inner {
+  background-color: #fff;
+  padding: 2rem;
+  margin-top: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  /* max-width: 960px; */
+  min-height: calc(100vh - 6rem);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-menu {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem; /* dikurangi biar nggak terlalu jauh dari konten */
+  margin-top: -1.95rem;
+  border-bottom: 2px solid #ddd;
+}
+
+.tab-link {
+  flex: 1;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 0;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+}
+
+.tab-link.active {
+  border-bottom: 3px solid #2196f3;
+  background: none;
+  color: #2196f3;
+}
+
+.tab-link:hover:not(.active) {
+  background-color: #bdbdbd;
+}
+
+.manajemen-content {
+  width: 100%;
+  flex-grow: 1; /* supaya konten ngisi ruang vertikal yang tersedia */
+  display: block;
+}
+
+.view-section {
+  transition: opacity 0.3s ease;
+  opacity: 1;
+  min-height: auto; /* agar tinggi mengikuti isi konten */
+}
+
+.view-section.hidden {
+  opacity: 0;
+  pointer-events: none;
+  height: 0; /* supaya benar-benar ngilang dari flow */
+  overflow: hidden;
+}
+
+.view-content {
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.empty-message {
+  color: #777;
+  font-style: italic;
+  text-align: center;
+  padding: 1rem;
+}

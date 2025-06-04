@@ -1,0 +1,153 @@
+/* === Global Styling === */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f2f5f9;
+  margin: 0;
+  padding-top: 2rem;
+  color: #333;
+}
+
+.admin-dashboard {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.chart-section {
+  background-color: #fff;
+  padding: 1rem 1.5rem 1.5rem 1.5rem;
+  border-radius: 12px;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  height: 420px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.chart-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.chart-wrapper {
+  flex-grow: 1;
+  height: 100%; /* agar isi canvas stay di area ini */
+  overflow: hidden; /* biar gak meluber */
+  position: relative;
+}
+
+#weeklyChart {
+  width: 100%;
+  height: 100%; /* penting: penuhi ruang yang udah ditetapkan chart-wrapper */
+  display: block;
+}
+
+
+
+
+#weeklyChart {
+  width: 100%;
+  height: auto;
+  display: block;
+  padding-top: 1rem;
+  padding-bottom: 1rem; /* penting, biar gak nempel bawah */
+  max-height: 100%;     /* biar gak nembus container */
+  box-sizing: border-box;
+}
+
+
+/* === Statistik Section === */
+.stat-grid-1,
+.stat-grid-2 {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  flex: 1 1 calc(50% - 1.5rem);
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: #666;
+}
+
+.stat-value {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #2196f3;
+}
+
+/* === Cerita Terbaru === */
+.recent-section {
+  margin-top: 2rem;
+}
+
+.recent-title {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.recent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.recent-card {
+  background-color: #ffffff;
+  padding: 1.2rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.recent-card:hover {
+  transform: translateY(-4px);
+}
+
+.recent-card h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.region {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 0.5rem;
+}
+
+.desc {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+/* === Responsiveness === */
+@media (max-width: 768px) {
+  .stat-card {
+    flex: 1 1 100%;
+  }
+}
