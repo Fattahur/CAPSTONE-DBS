@@ -97,6 +97,26 @@ body {
   color: #2196f3;
 }
 
+.stat-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem; /* jarak antara teks dan panah */
+}
+
+.arrow-circle-icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0; /* biar nggak mengecil */
+  color: #333;
+}
+
+
+.stat-card:hover .arrow-circle-icon {
+  transform: translateX(5px); /* animasi saat hover */
+}
+
+
 /* === Cerita Terbaru === */
 .recent-section {
   margin-top: 2rem;
