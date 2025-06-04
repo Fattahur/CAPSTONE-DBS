@@ -320,4 +320,4 @@ export const authService = {
 //   tambahCeritaBaru: addStory,
 //   getAllStories,
 //   getStoryDetail,
- };
+ ;
