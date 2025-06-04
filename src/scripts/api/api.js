@@ -60,6 +60,147 @@ export const authService = {
     };
   },
 
+  async forgotPassword(email) {
+    const response = await fetch(`${BASE_URL}/forgot-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    const responseJson = await response.json();
+    if (!response.ok) throw new Error(responseJson.message);
+    return responseJson;
+  },
+
+  async resetPassword({ email, password }) {
+    const response = await fetch(`${BASE_URL}/reset-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+    const responseJson = await response.json();
+    if (!response.ok) throw new Error(responseJson.message);
+    return responseJson;
+  },
+
+  async createDetailUser(data) {
+    const response = await fetch(`${BASE_URL}/detail-users`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  },
+
+  async getDetailUser(user_id) {
+    const response = await fetch(`${BASE_URL}/detail-users/${user_id}`);
+    return await response.json();
+  },
+
+  async updateDetailUser(user_id, data) {
+    const response = await fetch(`${BASE_URL}/detail-users/${user_id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  },
+
+  async tambahCerita({ token, img, ...data }) {
+    const formData = new FormData();
+    Object.entries(data).forEach(([key, value]) => formData.append(key, value));
+    formData.append('img', img);
+
+    const response = await fetch(`${BASE_URL}/tambah-cerita`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+    return await response.json();
+  },
+
+  async updateStatusCerita(id, status) {
+    const response = await fetch(`${BASE_URL}/cerita/${id}/status`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status }),
+    });
+    return await response.json();
+  },
+
+  async getWaitingListWithCerita() {
+    const response = await fetch(`${BASE_URL}/waiting-list`);
+    return await response.json();
+  },
+
+  async simpanAnalisisCerita(data) {
+    const response = await fetch(`${BASE_URL}/analisis-cerita`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  },
+
+  async likeCerita(data) {
+    const response = await fetch(`${BASE_URL}/like`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  },
+
+  async unlikeCerita(data) {
+    const response = await fetch(`${BASE_URL}/unlike`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  },
+
+  async tambahKomentar(data) {
+    const response = await fetch(`${BASE_URL}/komentar`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  },
+
+  async getKomentarByCerita(id_cerita) {
+    const response = await fetch(`${BASE_URL}/komentar/${id_cerita}`);
+    return await response.json();
+  },
+
+  async tambahFavorit(data) {
+    const response = await fetch(`${BASE_URL}/favorit`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  },
+
+  async hapusFavorit(data) {
+    const response = await fetch(`${BASE_URL}/hapus-favorit`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  },
+
+  async getCeritaDetail(id_cerita) {
+    const response = await fetch(`${BASE_URL}/cerita/detail/${id_cerita}`);
+    return await response.json();
+  },
+};
+
+  
+
 
 
 

@@ -2,7 +2,7 @@ const ManajemenPage = {
   async render() {
     return `
       <section class="manajemen-wrapper">
-        <div class="manajemen-inner"
+        <div class="manajemen-inner">
           <!-- Navigasi tab -->
           <nav class="tab-menu" role="tablist">
             <a href="#" id="showWelcome" class="tab-link active" role="tab" aria-selected="true">Manajemen Konten</a>
@@ -21,13 +21,26 @@ const ManajemenPage = {
 
             <!-- Tampilan Waiting List -->
             <div id="waitingView" class="view-section hidden" role="tabpanel" aria-hidden="true">
-              <div class="view-content">
-                <h2>Daftar Cerita Menunggu Persetujuan</h2>
-                <p>(Belum ada cerita masuk)</p>
+              <div class="view-content-header">
+              </div>
+              <div class="view-content-table">
+                <table id="waitingTable" class="display" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Judul Cerita</th>
+                      <th>Pengirim</th>
+                      <th>Status</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Kosong dulu, nanti isi dinamis -->
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
-
         </div>
       </section>
     `;
@@ -39,34 +52,35 @@ const ManajemenPage = {
     const welcomeView = document.getElementById("welcomeView");
     const waitingView = document.getElementById("waitingView");
 
+    function switchTab(activeBtn, inactiveBtn, showView, hideView) {
+      showView.classList.remove("hidden");
+      hideView.classList.add("hidden");
+
+      activeBtn.classList.add("active");
+      inactiveBtn.classList.remove("active");
+
+      activeBtn.setAttribute("aria-selected", "true");
+      inactiveBtn.setAttribute("aria-selected", "false");
+
+      showView.setAttribute("aria-hidden", "false");
+      hideView.setAttribute("aria-hidden", "true");
+    }
+
     welcomeBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      welcomeView.classList.remove("hidden");
-      waitingView.classList.add("hidden");
-
-      welcomeBtn.classList.add("active");
-      waitingBtn.classList.remove("active");
-
-      welcomeBtn.setAttribute("aria-selected", "true");
-      waitingBtn.setAttribute("aria-selected", "false");
-
-      welcomeView.setAttribute("aria-hidden", "false");
-      waitingView.setAttribute("aria-hidden", "true");
+      switchTab(welcomeBtn, waitingBtn, welcomeView, waitingView);
     });
 
     waitingBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      welcomeView.classList.add("hidden");
-      waitingView.classList.remove("hidden");
+      switchTab(waitingBtn, welcomeBtn, waitingView, welcomeView);
+    });
 
-      welcomeBtn.classList.remove("active");
-      waitingBtn.classList.add("active");
-
-      welcomeBtn.setAttribute("aria-selected", "false");
-      waitingBtn.setAttribute("aria-selected", "true");
-
-      welcomeView.setAttribute("aria-hidden", "true");
-      waitingView.setAttribute("aria-hidden", "false");
+    // Inisialisasi DataTables
+    $('#waitingTable').DataTable({
+      language: {
+        emptyTable: "Belum ada cerita yang menunggu persetujuan."
+      }
     });
   },
 };

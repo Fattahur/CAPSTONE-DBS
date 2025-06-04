@@ -1,67 +1,82 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <title>Cerita Nusantara</title>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- DataTables CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
+    />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <title>Cerita Nusantara</title>
+  </head>
 
-<body>  
-  
-  <div class="gradient-bg"></div>
-  <!-- Skip link untuk aksesibilitas -->
-  <a href="#main-content" class="skip-to-content">Lewati ke Konten</a>
+  <body>
+    <div class="gradient-bg"></div>
+    <!-- Skip link untuk aksesibilitas -->
+    <a href="#main-content" class="skip-to-content">Lewati ke Konten</a>
 
-  <header class="header">
-    <div class="container">
-      <nav class="navbar" role="navigation" aria-label="Navigasi utama">
-        <div class="logo" style="cursor: pointer;">
-          <img src="images/logo.png" alt="Logo Cerita Nusantara">
-          <span class="logo-text">Cerita Nusantara</span>
-        </div>
-  
-        <!-- Tambahkan id="navbar" di sini -->
-        <div id="navbar" class="navbar-link">
-          <a href="#beranda">Beranda</a>
-          <a href="#sorotan_budaya">Sorotan Budaya</a>
-          <a href="#keunggulan">Keunggulan</a>
-          <a href="#tentang_kami">Tentang Kami</a>
-          <a href="#visi_misi">Visi Misi</a>
-          <a href="#login" class="btn-login-navbar">Login</a>
-        </div>
-  
-        <button class="hamburger" aria-label="Menu Navigasi">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </nav>
-    </div>
-  </header>
+    <header class="header">
+      <div class="container">
+        <nav class="navbar" role="navigation" aria-label="Navigasi utama">
+          <div class="logo" style="cursor: pointer">
+            <img src="images/logo.png" alt="Logo Cerita Nusantara" />
+            <span class="logo-text">Cerita Nusantara</span>
+          </div>
 
-  <!-- Konten dinamis SPA -->
-  <main id="main-content"></main>
-  <div id="toast-container"></div> <!-- HARUS di luar main-content -->
+          <!-- Tambahkan id="navbar" di sini -->
+          <div id="navbar" class="navbar-link">
+            <a href="#beranda">Beranda</a>
+            <a href="#sorotan_budaya">Sorotan Budaya</a>
+            <a href="#keunggulan">Keunggulan</a>
+            <a href="#tentang_kami">Tentang Kami</a>
+            <a href="#visi_misi">Visi Misi</a>
+            <a href="#login" class="btn-login-navbar">Login</a>
+          </div>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-container">
-      <p>&copy; 2025 Cerita Nusantara. All rights reserved.</p>
-      <nav>
-        <a href="#">Kebijakan Privasi</a> |
-        <a href="#">Kontak</a> |
-        <a href="#">Tentang Kami</a>
-      </nav>
-    </div>
-  </footer>
+          <button class="hamburger" aria-label="Menu Navigasi">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </nav>
+      </div>
+    </header>
 
-  <!-- Script utama aplikasi SPA -->
-  <script type="module" src="/src/scripts/app.js"></script>
-</body>
+    <!-- Konten dinamis SPA -->
+    <main id="main-content"></main>
+    <div id="toast-container"></div>
+    <!-- HARUS di luar main-content -->
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <p>&copy; 2025 Cerita Nusantara. All rights reserved.</p>
+        <nav>
+          <a href="#">Kebijakan Privasi</a> | <a href="#">Kontak</a> |
+          <a href="#">Tentang Kami</a>
+        </nav>
+      </div>
+    </footer>
+
+    <!-- Script utama aplikasi SPA -->
+    <script type="module" src="/src/scripts/app.js"></script>
+  </body>
 </html>
-
-
