@@ -5,6 +5,7 @@ import BerandaPage from '../pages/beranda/beranda-page.js';
 import CeritaBudayaPage from '../pages/cerita-budaya/ceritabudaya-page.js';
 import JelajahPage from '../pages/jelajah/jelajah-page.js';
 import RingkasanPage from '../pages/ringkasan/ringkasan-page.js';
+import ProfilPenggunaPage from '../pages/profil-pengguna/profilpengguna-page.js';
 
 const routes = {
   '#/': LandingPage, // sebelum login landing page
@@ -13,7 +14,8 @@ const routes = {
   '#/beranda': BerandaPage, // ini halaman beranda  setelah login
   '#/cerita-budaya': CeritaBudayaPage, // halaman cerita budaya
   '#/jelajah': JelajahPage, // halaman jelajah
-  '#/ringkasan': RingkasanPage // halaman ringkasan
+  '#/ringkasan': RingkasanPage, // halaman ringkasan
+  '#/profil': ProfilPenggunaPage // halaman profil
 
 };
 
