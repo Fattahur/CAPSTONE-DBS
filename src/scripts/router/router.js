@@ -1,27 +1,31 @@
+import LandingPage from "../pages/landing-page.js";
+import LoginPage from "../pages/auth/login/login-page.js";
+import BerandaPage from "../pages/beranda/beranda-page.js";
+import CeritaBudayaPage from "../pages/cerita-budaya/ceritabudaya-page.js";
+import JelajahPage from "../pages/jelajah/jelajah-page.js";
+import RingkasanPage from "../pages/ringkasan/ringkasan-page.js";
+import AdminPage from "../pages/admin/dashboard/admin-page.js";
+import ManajemenPage from "../pages/admin/manajemen/manajemen-page.js";
+import ProfilPenggunaPage from "../pages/profil-pengguna/profilpengguna-page.js";
 
-import LandingPage from '../pages/landing-page.js';
-import LoginPage from '../pages/auth/login/login-page.js';
-import BerandaPage from '../pages/beranda/beranda-page.js';
-import CeritaBudayaPage from '../pages/cerita-budaya/ceritabudaya-page.js';
-import JelajahPage from '../pages/jelajah/jelajah-page.js';
-import RingkasanPage from '../pages/ringkasan/ringkasan-page.js';
-import ProfilPenggunaPage from '../pages/profil-pengguna/profilpengguna-page.js';
 
 
 const routes = {
-  '#/': LandingPage, // sebelum login landing page
-  '#/landing': LandingPage, // sebelum login landing page
-  '#/login': LoginPage, // login page
-  '#/beranda': BerandaPage, // ini halaman beranda  setelah login
-  '#/cerita-budaya': CeritaBudayaPage, // halaman cerita budaya
-  '#/jelajah': JelajahPage, // halaman jelajah
-  '#/ringkasan': RingkasanPage // halaman ringkasan
-  '#/profil': ProfilPenggunaPage // halaman profil
-
+  "#/": LandingPage, // sebelum login landing page
+  "#/landing": LandingPage, // sebelum login landing page
+  "#/login": LoginPage, // login page
+  "#/beranda": BerandaPage, // ini halaman beranda  setelah login
+  "#/cerita-budaya": CeritaBudayaPage, // halaman cerita budaya
+  "#/jelajah": JelajahPage, // halaman jelajah
+  "#/ringkasan": RingkasanPage, // halaman ringkasan
+  "#/admin": AdminPage,
+  "#/manajemen": ManajemenPage,
+  "#/profil": ProfilPenggunaPagePage,
 };
 
 export const renderPage = async () => {
-  const path = window.location.hash || "#/";
+  // const path = window.location.hash || "#/";
+  const path = window.location.hash.split("?")[0] || "#/";
   const Page = routes[path] || LandingPage;
 
   const container = document.getElementById("main-content");
