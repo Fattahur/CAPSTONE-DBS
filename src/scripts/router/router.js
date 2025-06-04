@@ -20,7 +20,7 @@ const routes = {
   "#/ringkasan": RingkasanPage, // halaman ringkasan
   "#/admin": AdminPage,
   "#/manajemen": ManajemenPage,
-  "#/profil": ProfilPenggunaPagePage,
+  "#/profil": ProfilPenggunaPage,
 };
 
 export const renderPage = async () => {
