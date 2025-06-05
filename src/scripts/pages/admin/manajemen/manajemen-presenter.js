@@ -22,6 +22,9 @@ const ManajemenPresenter = {
     $('#kontenTable').DataTable({
       language: { emptyTable: "Belum ada konten yang tersedia." },
       destroy: true,
+      paging: false,       // matikan pagination (hilangin Previous/Next)
+      info: false,         // matikan info text "Showing 1 to 1 of 1 entries"
+      lengthChange: false, // matikan dropdown "Show entries"
       data: data.map((item, index) => [
         index + 1,
         `<img src="${BASE_URL.replace('/api/auth', '')}/uploads/${item.gambar}" alt="${item.judul}" width="200" />`,
@@ -60,6 +63,9 @@ const ManajemenPresenter = {
     $('#waitingTable').DataTable({
       language: { emptyTable: "Belum ada data waiting list." },
       destroy: true,
+      paging: false,       // matikan pagination (hilangin Previous/Next)
+      info: false,         // matikan info text "Showing 1 to 1 of 1 entries"
+      lengthChange: false, // matikan dropdown "Show entries"
       data: data.map(item => [
         item.id_cerita,
         item.judul,

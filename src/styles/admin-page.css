@@ -171,3 +171,45 @@ body {
     flex: 1 1 100%;
   }
 }
+
+.recent-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 16px;
+  margin-bottom: 16px;
+  max-width: 400px;
+  transition: box-shadow 0.3s ease;
+}
+
+.recent-card:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.recent-card img.recent-image {
+  display: block;
+  width: 100%;        /* Lebar penuh container */
+  height: 180px;      /* Tinggi tetap */
+  border-radius: 6px;
+  margin-bottom: 12px;
+  object-fit: cover;  /* Crop gambar */
+}
+
+.recent-card h4 {
+  font-size: 1.25rem;
+  margin: 0 0 8px;
+  color: #333;
+}
+
+.recent-card .region {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.recent-card .desc {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.4;
+}
+
