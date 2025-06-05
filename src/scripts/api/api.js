@@ -1,7 +1,7 @@
 
 import { putAccessToken, putUser } from '../utils/auth.js';
 
-const BASE_URL = 'https://3744-203-29-27-134.ngrok-free.app/api/auth';
+export const BASE_URL = 'https://3744-203-29-27-134.ngrok-free.app/api/auth';
 
 export const authService = {
   async register({ name, email, password }) {

@@ -1,7 +1,9 @@
+import { BASE_URL } from '../../../api/api.js';
+
 const AdminPresenter = {
   async getTotalCerita() {
     try {
-      const response = await fetch('https://3744-203-29-27-134.ngrok-free.app/api/auth/jumlah-cerita', {
+      const response = await fetch(`${BASE_URL}/jumlah-cerita`, {
         headers: {
           'ngrok-skip-browser-warning': 'true',
           'Accept': 'application/json',
