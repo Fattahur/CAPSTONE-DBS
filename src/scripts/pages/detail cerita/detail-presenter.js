@@ -1,4 +1,4 @@
-const API_URL = 'https://ceritanusantara.site/api/auth/cerita/detail';
+const API_URL = "https://ceritanusantara.site/api/auth/cerita/detail";
 
 const detailPresenter = {
   async fetchCerita(id) {
@@ -10,18 +10,18 @@ const detailPresenter = {
         },
       });
 
-      if (!response.ok) throw new Error('Gagal ambil data cerita');
+      if (!response.ok) throw new Error("Gagal ambil data cerita");
 
       const data = await response.json();
 
       // ✅ FIX: karena API mengembalikan array di dalam "data"
       if (!data.data || data.data.length === 0) {
-        throw new Error('Cerita tidak ditemukan');
+        throw new Error("Cerita tidak ditemukan");
       }
 
       return data.data[0]; // Ambil cerita pertama (karena berbentuk array)
     } catch (error) {
-      console.error('DetailPresenter Error:', error);
+      console.error("DetailPresenter Error:", error);
       return null;
     }
   },
