@@ -1,119 +1,81 @@
-import React, { useState } from 'react';
+import AddProfileModel from '../../models/addprofileModel'; // Mengimpor model
 
-const ProfilPenggunaPresenter = ({ onSubmit }) => {
-  const [name, setName] = useState('');
-  const [dob, setDob] = useState('');
-  const [gender, setGender] = useState('');
-  const [email, setEmail] = useState('');
-  const [profileImage, setProfileImage] = useState(''); // Menambahkan state untuk gambar profil
+export default class ProfilPenggunaPresenter {
+  constructor(view) {
+    this.view = view;
+    this.name = '';
+    this.dob = '';
+    this.gender = '';
+    this.phoneNumber = '';
+    this.address = '';
+    this.profileImage = ''; // Menambahkan properti untuk gambar profil
+  }
 
-  const handleSubmit = async (e) => {
+  // Fungsi untuk mengupdate profil pengguna
+  async handleSubmit(e, name, dob, gender, phoneNumber, address, profileImage) {
     e.preventDefault();
-    if (!name || !dob || !gender || !email) {
-      alert('Semua kolom harus diisi!');
+
+    // Validasi input form
+    if (!name || !dob || !gender || !phoneNumber || !address) {
+      alert("Semua kolom harus diisi!");
       return;
     }
 
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('dob', dob);
-    formData.append('gender', gender);
-    formData.append('email', email);
-    if (profileImage) {
-      formData.append('profileImage', profileImage);
-    }
+    // Menyiapkan data form untuk dikirim ke API
+    const profileData = {
+      user_id: 5,  // ID pengguna (misalnya ID dari login session atau data dari server)
+      nama_lengkap: name,
+      photo_profile: profileImage || "https://example.com/foto.jpg",  // Gambar profil jika ada, atau gambar default
+      no_telepon: phoneNumber || "08123456789",  // No telepon
+      alamat: address || "Jl. Merdeka No. 45, Kediri",  // Alamat
+      tanggal_lahir: dob,
+      jenis_kelamin: gender === 'male' ? 'L' : 'P',  // Mengubah gender ke 'L' atau 'P'
+      status_aktif: 1  // Status aktif
+    };
 
+    // Mengirimkan data ke API
+    this.updateProfile(profileData);
+  }
+
+  // Fungsi untuk mengirim data ke API
+  async updateProfile(profileData) {
+    const profileModel = new AddProfileModel();  // Pastikan menggunakan nama model yang benar
     try {
-      const response = await fetch('/api/saveProfile', {
-        method: 'POST',
-        body: formData,
-      });
-      const data = await response.json();
-      if (data.success) {
-        alert('Profil berhasil disimpan!');
+      const result = await profileModel.addProfile(profileData);  // Mengirim data profile ke model
+
+      // Menangani respons yang datang
+      if (result.success) {
+        alert(result.message);  // Menampilkan pesan sukses
       } else {
-        alert('Gagal menyimpan profil.');
+        alert(result.message);  // Menampilkan pesan error
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('Terjadi kesalahan, coba lagi.');
+      alert('Terjadi kesalahan saat memperbarui profil.');
     }
-  };
+  }
 
-  const handleReset = () => {
-    setName('');
-    setDob('');
-    setGender('');
-    setEmail('');
-    setProfileImage(''); // Reset gambar profil
-  };
+  // Fungsi untuk mereset form
+  handleReset() {
+    this.view.name = '';
+    this.view.dob = '';
+    this.view.gender = '';
+    this.view.phoneNumber = '';
+    this.view.address = '';
+    this.view.profileImage = ''; // Reset gambar profil
+    this.view.render(document.getElementById('profileContainer')); // Render ulang tampilan setelah reset
+  }
 
-  const handleImageChange = (e) => {
+  // Fungsi untuk menangani perubahan gambar
+  handleImageChange(e) {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setProfileImage(reader.result); // Update gambar profil
+        this.view.profileImage = reader.result; // Update gambar profil
+        this.view.render(document.getElementById('profileContainer')); // Memanggil render dengan container yang valid
       };
       reader.readAsDataURL(file);
     }
-  };
-
-  return (
-    <div>
-      <h1>Profil Pengguna</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Nama
-          <input
-            type="text"
-            placeholder="Masukkan Nama"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
-        <label>
-          Tanggal Lahir
-          <input
-            type="date"
-            value={dob}
-            onChange={(e) => setDob(e.target.value)}
-          />
-        </label>
-        <label>
-          Gender
-          <select
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
-          >
-            <option value="">Pilih Gender</option>
-            <option value="male">Laki-laki</option>
-            <option value="female">Perempuan</option>
-          </select>
-        </label>
-        <label>
-          Email
-          <input
-            type="email"
-            placeholder="Masukkan Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <label>
-          Gambar Profil
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-          />
-          {profileImage && <img src={profileImage} alt="Profile" className="profile-image" />}
-        </label>
-        <button type="submit">Simpan</button>
-        <button type="button" onClick={handleReset}>Reset</button>
-      </form>
-    </div>
-  );
-};
-
-export default ProfilPenggunaPresenter;
+  }
+}
