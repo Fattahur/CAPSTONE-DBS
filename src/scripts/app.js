@@ -469,3 +469,27 @@ window.addEventListener('load', () => {
   updateNavbar();
   updateActiveNav();
 });
+
+
+
+
+
+
+
+
+
+
+import { initMap } from './map.js';
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Misal kamu punya div dengan id="map" di halaman yang ingin pakai map
+  const mapContainerId = 'map';
+
+  // Pastikan elemen div dengan id="map" sudah ada di DOM sebelum inisialisasi
+  const mapContainer = document.getElementById(mapContainerId);
+  if (mapContainer) {
+    initMap(mapContainerId);
+  } else {
+    console.warn(`Element dengan id="${mapContainerId}" tidak ditemukan.`);
+  }
+});

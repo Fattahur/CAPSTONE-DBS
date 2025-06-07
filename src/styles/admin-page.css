@@ -13,6 +13,7 @@ body {
   margin: 0 auto;
 }
 
+/* === Chart Section === */
 .chart-section {
   background-color: #fff;
   padding: 1rem 1.5rem 1.5rem 1.5rem;
@@ -46,21 +47,11 @@ body {
   width: 100%;
   height: 100%; /* penting: penuhi ruang yang udah ditetapkan chart-wrapper */
   display: block;
-}
-
-
-
-
-#weeklyChart {
-  width: 100%;
-  height: auto;
-  display: block;
   padding-top: 1rem;
-  padding-bottom: 1rem; /* penting, biar gak nempel bawah */
-  max-height: 100%;     /* biar gak nembus container */
+  padding-bottom: 1rem; /* biar gak nempel bawah */
+  max-height: 100%; /* biar gak nembus container */
   box-sizing: border-box;
 }
-
 
 /* === Statistik Section === */
 .stat-grid-1,
@@ -109,15 +100,14 @@ body {
   height: 32px;
   flex-shrink: 0; /* biar nggak mengecil */
   color: #333;
+  transition: transform 0.2s ease;
 }
-
 
 .stat-card:hover .arrow-circle-icon {
   transform: translateX(5px); /* animasi saat hover */
 }
 
-
-/* === Cerita Terbaru === */
+/* === Cerita Terbaru (Recent Cards) === */
 .recent-section {
   margin-top: 2rem;
 }
@@ -131,68 +121,34 @@ body {
 .recent-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  gap: 8rem;
+  padding: 1rem;
 }
+
 
 .recent-card {
   background-color: #ffffff;
   padding: 1.2rem 1.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  /* max-width: 400px; */
+  margin-bottom: 16px;
+  cursor: pointer;
 }
 
 .recent-card:hover {
   transform: translateY(-4px);
-}
-
-.recent-card h4 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  color: #333;
-  font-size: 1.1rem;
-}
-
-.region {
-  font-size: 0.9rem;
-  color: #888;
-  margin-bottom: 0.5rem;
-}
-
-.desc {
-  font-size: 0.95rem;
-  color: #555;
-  line-height: 1.4;
-}
-
-/* === Responsiveness === */
-@media (max-width: 768px) {
-  .stat-card {
-    flex: 1 1 100%;
-  }
-}
-
-.recent-card {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  padding: 16px;
-  margin-bottom: 16px;
-  max-width: 400px;
-  transition: box-shadow 0.3s ease;
-}
-
-.recent-card:hover {
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .recent-card img.recent-image {
   display: block;
   width: 100%;        /* Lebar penuh container */
-  height: 180px;      /* Tinggi tetap */
+  height: 180px;      /* Tinggi tetap supaya semua gambar sama tinggi */
   border-radius: 6px;
   margin-bottom: 12px;
-  object-fit: cover;  /* Crop gambar */
+  object-fit: cover;  /* Crop gambar supaya ngisi area tanpa distorsi */
 }
 
 .recent-card h4 {
@@ -213,3 +169,13 @@ body {
   line-height: 1.4;
 }
 
+/* === Responsiveness === */
+@media (max-width: 768px) {
+  .stat-card {
+    flex: 1 1 100%;
+  }
+
+  .recent-card {
+    max-width: 100%;
+  }
+}

@@ -79,3 +79,38 @@
   text-align: center;
   padding: 1rem;
 }
+
+.action-btn {
+  font-family: 'Segoe UI', sans-serif;
+  padding: 8px 14px;
+  margin: 3px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  transition: transform 0.1s ease-in-out;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.edit-story {
+  background: linear-gradient(45deg, #1e90ff, #00bfff);
+}
+
+.delete-story {
+  background: linear-gradient(45deg, #ff416c, #ff4b2b);
+}
+
+.approve-story {
+  background: linear-gradient(45deg, #28a745, #218838);
+}
+
+.reject-story {
+  background: linear-gradient(45deg, #6c757d, #5a6268);
+}
+
+.action-btn:hover {
+  transform: scale(1.05);
+  opacity: 0.95;
+}
