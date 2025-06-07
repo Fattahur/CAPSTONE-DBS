@@ -5,14 +5,12 @@
 // import AOS from 'aos';
 // import 'aos/dist/aos.css';
 
-
 // AOS.init();
 
 // // Mengecek jika sudah login dan hash kosong, arahkan ke #/beranda
 // if (localStorage.getItem('isLoggedIn') === 'true' && window.location.hash === '') {
 //   window.location.hash = '#/beranda';
 // }
-
 
 // // memakai DOM Manipulation untuk memperbarui navbar
 // export function updateNavbar() {
@@ -88,30 +86,30 @@
 // document.addEventListener('DOMContentLoaded', function() {
 //     const hamburger = document.querySelector('.hamburger');
 //     const navbarLinks = document.querySelector('.navbar-link');
-    
+
 //     // Fungsi toggle menu
 //     function toggleMenu() {
 //       hamburger.classList.toggle('active');
 //       navbarLinks.classList.toggle('active');
-      
+
 //       // Toggle aria-expanded untuk aksesibilitas
 //       const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
 //       hamburger.setAttribute('aria-expanded', !isExpanded);
-      
+
 //       // Lock/unlock scroll body saat menu terbuka
 //       document.body.style.overflow = navbarLinks.classList.contains('active') ? 'hidden' : '';
 //     }
-    
+
 //     // Event listener untuk hamburger
 //     hamburger.addEventListener('click', toggleMenu);
-    
+
 //     // Tutup menu saat klik di luar
 //     document.addEventListener('click', function(e) {
 //       if (!e.target.closest('.navbar') && navbarLinks.classList.contains('active')) {
 //         toggleMenu();
 //       }
 //     });
-    
+
 //     // Tutup menu saat resize (jika mobile berubah ke desktop)
 //     window.addEventListener('resize', function() {
 //       if (window.innerWidth > 768 && navbarLinks.classList.contains('active')) {
@@ -119,9 +117,6 @@
 //       }
 //     });
 //   });
-
-
-
 
 // // Dropdown toggle foto profil
 // document.addEventListener("DOMContentLoaded", function () {
@@ -143,7 +138,6 @@
 //   }
 // });
 
-
 // function updateActiveNav() {
 //   const links = document.querySelectorAll('.navbar-link a');
 //   // Kalau URL hash kosong, anggap default halaman beranda (#/beranda)
@@ -158,20 +152,10 @@
 //   });
 // }
 
-
-
-
 // // Panggil saat halaman selesai dimuat
 // window.addEventListener('load', updateActiveNav);
 // // Panggil saat hash URL berubah (misal user klik link navbar)
 // window.addEventListener('hashchange', updateActiveNav);
-
-
-
-
-
-
-
 
 // import '../styles/main.css';
 // import './router/router.js';
@@ -236,7 +220,7 @@
 
 //   if (profileBtn && dropdownMenu) {
 //     profileBtn.addEventListener("click", (e) => {
-//       e.stopPropagation(); 
+//       e.stopPropagation();
 //       dropdownMenu.classList.toggle("show");
 //     });
 
@@ -326,24 +310,26 @@
 //   updateActiveNav();
 // });
 
+import "../styles/main.css";
+import "./router/router.js";
 
-
-
-import '../styles/main.css';
-import './router/router.js';
-
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import AOS from "aos";
+import "aos/dist/aos.css";
+import DetailPage from "../scripts/pages/detail cerita/detail-page.js";
+import { initMap } from "./map.js";
 
 AOS.init();
 
-if (localStorage.getItem('isLoggedIn') === 'true' && window.location.hash === '') {
-  window.location.hash = '#/beranda';
+if (
+  localStorage.getItem("isLoggedIn") === "true" &&
+  window.location.hash === ""
+) {
+  window.location.hash = "#/beranda";
 }
 
 export function updateNavbar() {
-  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-  const navbar = document.getElementById('navbar');
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const navbar = document.getElementById("navbar");
 
   if (!navbar) return;
 
@@ -375,14 +361,14 @@ export function updateNavbar() {
   }
 
   // Tambah event logout
-  const logoutButton = document.getElementById('logout');
+  const logoutButton = document.getElementById("logout");
   if (logoutButton) {
-    logoutButton.addEventListener('click', (e) => {
+    logoutButton.addEventListener("click", (e) => {
       e.preventDefault();
-      localStorage.removeItem('isLoggedIn');
-      localStorage.removeItem('userData');
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("userData");
       updateNavbar();
-      window.location.hash = '';
+      window.location.hash = "";
     });
   }
 
@@ -406,66 +392,71 @@ export function updateNavbar() {
   }
 
   // ✅ Event listener tombol "Tambah Cerita"
-  const tambahCeritaBtn = document.querySelector('.btn-tambah-cerita');
+  const tambahCeritaBtn = document.querySelector(".btn-tambah-cerita");
   if (tambahCeritaBtn) {
-    tambahCeritaBtn.addEventListener('click', (e) => {
+    tambahCeritaBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      window.location.hash = '#/add-cerita';
+      window.location.hash = "#/add-cerita";
     });
   }
 }
 
 function updateActiveNav() {
-  const currentHash = window.location.hash || '#/beranda';
-  const links = document.querySelectorAll('.navbar a');
-  links.forEach(link => {
-    if (link.getAttribute('href') === currentHash) {
-      link.classList.add('active');
+  const currentHash = window.location.hash || "#/beranda";
+  const links = document.querySelectorAll(".navbar a");
+  links.forEach((link) => {
+    if (link.getAttribute("href") === currentHash) {
+      link.classList.add("active");
     } else {
-      link.classList.remove('active');
+      link.classList.remove("active");
     }
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   updateNavbar();
   updateActiveNav();
 
   // Hamburger menu
-  const hamburger = document.querySelector('.hamburger');
-  const navbarLinks = document.querySelector('.navbar-link');
+  const hamburger = document.querySelector(".hamburger");
+  const navbarLinks = document.querySelector(".navbar-link");
 
   if (hamburger && navbarLinks) {
     function toggleMenu() {
-      hamburger.classList.toggle('active');
-      navbarLinks.classList.toggle('active');
-      const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
-      hamburger.setAttribute('aria-expanded', !isExpanded);
-      document.body.style.overflow = navbarLinks.classList.contains('active') ? 'hidden' : '';
+      hamburger.classList.toggle("active");
+      navbarLinks.classList.toggle("active");
+      const isExpanded = hamburger.getAttribute("aria-expanded") === "true";
+      hamburger.setAttribute("aria-expanded", !isExpanded);
+      document.body.style.overflow = navbarLinks.classList.contains("active")
+        ? "hidden"
+        : "";
     }
 
-    hamburger.addEventListener('click', toggleMenu);
+    hamburger.addEventListener("click", toggleMenu);
 
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('.navbar') && navbarLinks.classList.contains('active')) {
+    document.addEventListener("click", function (e) {
+      if (
+        !e.target.closest(".navbar") &&
+        navbarLinks.classList.contains("active")
+      ) {
         toggleMenu();
       }
     });
 
-    window.addEventListener('resize', function () {
-      if (window.innerWidth > 768 && navbarLinks.classList.contains('active')) {
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 768 && navbarLinks.classList.contains("active")) {
         toggleMenu();
       }
     });
   }
 });
 
-window.addEventListener('hashchange', () => {
+window.addEventListener("hashchange", () => {
   updateNavbar();
   updateActiveNav();
 });
 
-window.addEventListener('load', () => {
+window.addEventListener("load", () => {
   updateNavbar();
   updateActiveNav();
 });
@@ -473,17 +464,9 @@ window.addEventListener('load', () => {
 
 
 
-
-
-
-
-
-
-import { initMap } from './map.js';
-
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   // Misal kamu punya div dengan id="map" di halaman yang ingin pakai map
-  const mapContainerId = 'map';
+  const mapContainerId = "map";
 
   // Pastikan elemen div dengan id="map" sudah ada di DOM sebelum inisialisasi
   const mapContainer = document.getElementById(mapContainerId);
@@ -493,3 +476,26 @@ document.addEventListener('DOMContentLoaded', () => {
     console.warn(`Element dengan id="${mapContainerId}" tidak ditemukan.`);
   }
 });
+
+const appContainer = document.getElementById("main-content");
+
+
+
+async function router() {
+  const hash = window.location.hash || "#/beranda";
+
+  if (hash.startsWith("#/detail")) {
+    // Render dulu HTML-nya
+    appContainer.innerHTML = await DetailPage.render();
+    // Setelah itu, panggil afterRender untuk load data dan event listener
+    await DetailPage.afterRender();
+  }
+
+  // route lain bisa kamu buat di sini
+}
+
+// Jalankan router pertama kali saat page load
+window.addEventListener("load", router);
+
+// Tangani perubahan hash untuk SPA navigation
+window.addEventListener("hashchange", router);

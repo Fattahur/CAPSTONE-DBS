@@ -1,3 +1,4 @@
+// detail-presenter.js
 const API_URL = "https://ceritanusantara.site/api/auth/cerita/detail";
 
 const detailPresenter = {
@@ -5,8 +6,7 @@ const detailPresenter = {
     try {
       const response = await fetch(`${API_URL}?id=${id}`, {
         headers: {
-          // Hapus Authorization kalau tidak pakai token
-          // Authorization: `Bearer your_access_token`,
+          // Authorization: `Bearer your_access_token`, // Uncomment if needed
         },
       });
 
@@ -14,12 +14,11 @@ const detailPresenter = {
 
       const data = await response.json();
 
-      // ✅ FIX: karena API mengembalikan array di dalam "data"
       if (!data.data || data.data.length === 0) {
         throw new Error("Cerita tidak ditemukan");
       }
 
-      return data.data[0]; // Ambil cerita pertama (karena berbentuk array)
+      return data.data[0];
     } catch (error) {
       console.error("DetailPresenter Error:", error);
       return null;

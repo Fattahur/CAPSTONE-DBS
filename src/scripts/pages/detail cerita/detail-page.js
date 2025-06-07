@@ -145,18 +145,19 @@
 
 // export default DetailPage;
 
+// detail-page.js
 import detailPresenter from "./detail-presenter.js";
 
-const BASE_URL = "https://ceritanusantara.site/api/auth"; // base url API-mu
+const BASE_URL = "https://ceritanusantara.site/api/auth";
+
+let map; // simpan instance map global supaya bisa di-remove
 
 const DetailPage = {
   async render() {
     return `
       <section class="detail-container">
         <h2>Detail Cerita</h2>
-
         <img id="gambar" src="" alt="Gambar Cerita" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);" />
-
         <section class="like-bookmark">
           <div class="like" id="likeBtn" title="Like ❤️">
             ❤️ <span>Like</span> <span id="likeCount">0</span>
@@ -165,17 +166,14 @@ const DetailPage = {
             ⭐ <span>Favorit</span> <span id="favCount">0</span>
           </div>
         </section>
-
         <section class="info-cerita">
           <p><strong>Judul:</strong> <span id="judul"></span></p>
           <p><strong>Penulis:</strong> <span id="penulis"></span></p>
           <p><strong>Deskripsi:</strong> <span id="isi"></span></p>
         </section>
-
         <section class="map-wrapper" style="height: 300px;">
           <div id="map" style="width: 100%; height: 100%;"></div>
         </section>
-
         <section class="comments-section">
           <h3>Komentar</h3>
           <div class="comments-list" id="commentsList"></div>
@@ -189,36 +187,45 @@ const DetailPage = {
   },
 
   async afterRender() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get("id") || 20; // default id kalau gak ada
+    const hash = window.location.hash;
+    const queryString = hash.split("?")[1] || "";
+    const urlParams = new URLSearchParams(queryString);
+    const id = urlParams.get("id");
+
+    if (!id) {
+      alert("ID tidak ditemukan.");
+      return;
+    }
 
     const cerita = await detailPresenter.fetchCerita(id);
-
     if (!cerita) {
       alert("Gagal memuat data cerita");
       return;
     }
 
-    // Set isi konten
     document.getElementById("judul").textContent = cerita.judul;
     document.getElementById("penulis").textContent = cerita.nama_user;
     document.getElementById("isi").textContent = cerita.deskripsi;
-    document.getElementById("gambar").src = `${BASE_URL.replace(
-      "/api/auth",
-      ""
-    )}/uploads/${cerita.gambar}`;
+    document.getElementById("gambar").src = `${BASE_URL.replace("/api/auth", "")}/uploads/${cerita.gambar}`;
     document.getElementById("gambar").alt = cerita.judul;
 
-    // Map
-    // cek koordinat, kalau gak ada default ke Jakarta
-    const coords = cerita.lokasi_koordinat || [-6.2, 106.816666];
-    const map = L.map("map").setView(coords, 5);
+    const coords = cerita.lokasi_koordinat
+      ? cerita.lokasi_koordinat.split(",").map(Number)
+      : [-6.2, 106.816666];
+
+    // Hapus map lama kalau sudah ada
+    if (map) {
+      map.remove();
+    }
+
+    // Buat map baru dan simpan instance
+    map = L.map("map").setView(coords, 5);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "&copy; OpenStreetMap contributors",
     }).addTo(map);
     L.marker(coords).addTo(map).bindPopup(cerita.lokasi).openPopup();
 
-    // Like
+    // Like button
     const likeBtn = document.getElementById("likeBtn");
     const likeCount = document.getElementById("likeCount");
     let liked = cerita.like?.sudahDilikeUser || false;
@@ -234,10 +241,9 @@ const DetailPage = {
       totalLikes += liked ? 1 : -1;
       updateLikeUI();
     });
-
     updateLikeUI();
 
-    // Favorit
+    // Bookmark button
     const bookmarkBtn = document.getElementById("bookmarkBtn");
     const favCount = document.getElementById("favCount");
     let favorited = cerita.favorit?.sudahDifavoritkanUser || false;
@@ -253,7 +259,6 @@ const DetailPage = {
       totalFav += favorited ? 1 : -1;
       updateFavUI();
     });
-
     updateFavUI();
 
     // Komentar
@@ -270,11 +275,8 @@ const DetailPage = {
       cerita.komentar.forEach((komentar) => {
         const div = document.createElement("div");
         div.className = "comment-item";
-        // komentar sekarang objek, jadi tampilkan isi_komentar dan username
         div.innerHTML = `
-          <strong>${komentar.username}</strong> <small>${new Date(
-          komentar.tanggal
-        ).toLocaleString()}</small>
+          <strong>${komentar.username}</strong> <small>${new Date(komentar.tanggal).toLocaleString()}</small>
           <p>${komentar.isi_komentar}</p>
         `;
         commentsList.appendChild(div);
@@ -288,12 +290,11 @@ const DetailPage = {
       const newCommentText = commentInput.value.trim();
       if (!newCommentText) return;
 
-      // tambahkan komentar baru sebagai objek sesuai format
       const newComment = {
         id_komentar: Date.now(),
         isi_komentar: newCommentText,
         tanggal: new Date().toISOString(),
-        username: "User", // bisa diganti sesuai user login kalau ada
+        username: "User",
       };
 
       cerita.komentar.push(newComment);

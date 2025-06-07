@@ -79,8 +79,10 @@ const setupNavigation = () => {
   });
 };
 
+
 window.addEventListener("hashchange", renderPage);
 window.addEventListener("load", () => {
   renderPage();
   setupNavigation();
 });
+

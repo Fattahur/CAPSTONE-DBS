@@ -43,6 +43,7 @@ const BerandaPage = {
                         <img src="${item.gambar}" alt="${item.judul}" />
                         <h3>${item.judul}</h3>
                         <p>${item.isi}</p>
+                        <a href="#/detail?id=${item.id}" class="btn-selengkapnya">Selengkapnya</a>
                       </div>
                     `
                   )
@@ -71,6 +72,7 @@ const BerandaPage = {
                         <img src="${item.gambar}" alt="${item.judul}" />
                         <h3>${item.judul}</h3>
                         <p>${item.isi}</p>
+                        <a href="#/detail?id=${item.id}" class="btn-selengkapnya">Selengkapnya</a>
                       </div>
                     `
                   )
