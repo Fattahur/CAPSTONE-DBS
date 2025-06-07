@@ -10,7 +10,6 @@ import ProfilPenggunaPage from "../pages/profil-pengguna/profilpengguna-page.js"
 import AddCeritaPage from "../pages/tambah-cerita/addcerita-page.js";
 import DetailPage from "../pages/detail cerita/detail-page.js";
 
-
 const routes = {
   "#/": LandingPage, // sebelum login landing page
   "#/landing": LandingPage, // sebelum login landing page
