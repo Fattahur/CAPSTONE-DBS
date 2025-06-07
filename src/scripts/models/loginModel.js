@@ -1,4 +1,5 @@
 
+// loginModel.js
 import { authService } from '../api/api';
 
 export default class LoginModel {

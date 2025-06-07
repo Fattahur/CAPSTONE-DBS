@@ -3,21 +3,21 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-body {
+  }
+  
+  body {
     font-family: 'Arial', sans-serif;
     background-color: #f5f6f7;
     color: #333;
-}
-
-a {
+  }
+  
+  a {
     text-decoration: none;
     color: inherit;
-}
-
-/* Profil Content */
-.profil-container {
+  }
+  
+  /* Profil Content */
+  .profil-container {
     background: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -27,26 +27,26 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.profil-content h1 {
+  }
+  
+  .profil-content h1 {
     font-size: 2rem;
     margin-bottom: 20px;
     color: #e9a040;
-}
-
-.form-group {
+  }
+  
+  .form-group {
     margin-bottom: 15px;
     width: 100%;
-}
-
-label {
+  }
+  
+  label {
     font-size: 1rem;
     font-weight: 600;
     color: #333;
-}
-
-input, select {
+  }
+  
+  input, select {
     width: 100%;
     padding: 10px;
     margin-top: 8px;
@@ -54,14 +54,14 @@ input, select {
     border-radius: 5px;
     font-size: 1rem;
     color: #333;
-}
-
-input[type="date"] {
+  }
+  
+  input[type="date"] {
     padding: 8px;
-}
-
-/* Tombol Simpan */
-button.submit-btn {
+  }
+  
+  /* Tombol Simpan */
+  button.submit-btn {
     background-color: #18f807;
     color: white;
     padding: 10px 20px;
@@ -71,14 +71,14 @@ button.submit-btn {
     cursor: pointer;
     width: 100%;
     transition: background-color 0.3s ease;
-}
-
-button.submit-btn:hover {
+  }
+  
+  button.submit-btn:hover {
     background-color: #f3d8b4;
-}
-
-/* Tombol Reset (Merah) */
-button.reset-btn {
+  }
+  
+  /* Tombol Reset (Merah) */
+  button.reset-btn {
     background-color: #fd0000;  /* Warna merah */
     color: #070707;
     padding: 10px 20px;
@@ -89,22 +89,22 @@ button.reset-btn {
     width: 100%;
     margin-top: 10px;
     transition: background-color 0.3s ease;
-}
-
-button.reset-btn:hover {
+  }
+  
+  button.reset-btn:hover {
     background-color: #d1d1d1;  /* Warna sedikit lebih terang saat hover */
-}
-
-/* Gambar Profil di Header */
-#profileBtn {
+  }
+  
+  /* Gambar Profil di Header */
+  #profileBtn {
     width: 40px;  /* Ukuran kecil untuk gambar di header */
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
-}
-
-/* Gambar Profil dalam Form */
-.profile-img {
+  }
+  
+  /* Gambar Profil dalam Form */
+  .profile-img {
     max-width: 200px;  /* Ukuran besar untuk gambar di form */
     max-height: 200px;
     border-radius: 50%;
@@ -113,11 +113,10 @@ button.reset-btn:hover {
     display: block;
     margin-left: auto;
     margin-right: auto;
-}
-
-
-/* Gambar Profil yang sudah diupload dalam form */
-.profile-image-container {
+  }
+  
+  /* Gambar Profil yang sudah diupload dalam form */
+  .profile-image-container {
     margin-top: 20px;
     display: flex;
     justify-content: center;
@@ -127,17 +126,16 @@ button.reset-btn:hover {
     max-height: 250px;
     border-radius: 50%;
     overflow: hidden;
-}
-
-.profile-image {
+  }
+  
+  .profile-image {
     width: 300%;
     height: auto;
     object-fit: cover;
-}
-
-
-/* Tombol Pilih File */
-input[type="file"].profile-file-input {
+  }
+  
+  /* Tombol Pilih File */
+  input[type="file"].profile-file-input {
     display: block;
     margin-top: 10px;
     padding: 12px;
@@ -145,29 +143,30 @@ input[type="file"].profile-file-input {
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 100%;
-}
-
-/* Responsiveness */
-@media (max-width: 768px) {
+  }
+  
+  /* Responsiveness */
+  @media (max-width: 768px) {
     .profil-container {
-        padding: 15px;
+      padding: 15px;
     }
-
+  
     .profil-content h1 {
-        font-size: 1.5rem;
+      font-size: 1.5rem;
     }
-
+  
     button.submit-btn, button.reset-btn {
-        padding: 12px 18px;
+      padding: 12px 18px;
     }
-
+  
     .profile-image-container {
-        max-width: 150px;
-        max-height: 150px;
+      max-width: 150px;
+      max-height: 150px;
     }
-
+  
     .profile-img {
-        width: 100px;
-        height: 100px;
+      width: 100px;
+      height: 100px;
     }
-}
+  }
+  
