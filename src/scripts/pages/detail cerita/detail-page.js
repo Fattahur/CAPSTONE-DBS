@@ -37,7 +37,6 @@
 //   `;
 // },
 
-
 //   afterRender() {
 //   const cerita = {
 //     id: 18,
@@ -146,10 +145,9 @@
 
 // export default DetailPage;
 
+import detailPresenter from "./detail-presenter.js";
 
-import detailPresenter from './detail-presenter.js';
-
-const BASE_URL = 'https://ceritanusantara.site/api/auth'; // base url API-mu
+const BASE_URL = "https://ceritanusantara.site/api/auth"; // base url API-mu
 
 const DetailPage = {
   async render() {
@@ -192,12 +190,12 @@ const DetailPage = {
 
   async afterRender() {
     const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id') || 20; // default id kalau gak ada
+    const id = urlParams.get("id") || 20; // default id kalau gak ada
 
     const cerita = await detailPresenter.fetchCerita(id);
 
     if (!cerita) {
-      alert('Gagal memuat data cerita');
+      alert("Gagal memuat data cerita");
       return;
     }
 
@@ -205,15 +203,18 @@ const DetailPage = {
     document.getElementById("judul").textContent = cerita.judul;
     document.getElementById("penulis").textContent = cerita.nama_user;
     document.getElementById("isi").textContent = cerita.deskripsi;
-    document.getElementById("gambar").src = `${BASE_URL.replace('/api/auth', '')}/uploads/${cerita.gambar}`;
+    document.getElementById("gambar").src = `${BASE_URL.replace(
+      "/api/auth",
+      ""
+    )}/uploads/${cerita.gambar}`;
     document.getElementById("gambar").alt = cerita.judul;
 
     // Map
     // cek koordinat, kalau gak ada default ke Jakarta
-    const coords = cerita.lokasi_koordinat || [-6.200000, 106.816666]; 
+    const coords = cerita.lokasi_koordinat || [-6.2, 106.816666];
     const map = L.map("map").setView(coords, 5);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: '&copy; OpenStreetMap contributors',
+      attribution: "&copy; OpenStreetMap contributors",
     }).addTo(map);
     L.marker(coords).addTo(map).bindPopup(cerita.lokasi).openPopup();
 
@@ -271,7 +272,9 @@ const DetailPage = {
         div.className = "comment-item";
         // komentar sekarang objek, jadi tampilkan isi_komentar dan username
         div.innerHTML = `
-          <strong>${komentar.username}</strong> <small>${new Date(komentar.tanggal).toLocaleString()}</small>
+          <strong>${komentar.username}</strong> <small>${new Date(
+          komentar.tanggal
+        ).toLocaleString()}</small>
           <p>${komentar.isi_komentar}</p>
         `;
         commentsList.appendChild(div);
@@ -290,7 +293,7 @@ const DetailPage = {
         id_komentar: Date.now(),
         isi_komentar: newCommentText,
         tanggal: new Date().toISOString(),
-        username: 'User' // bisa diganti sesuai user login kalau ada
+        username: "User", // bisa diganti sesuai user login kalau ada
       };
 
       cerita.komentar.push(newComment);
@@ -301,4 +304,3 @@ const DetailPage = {
 };
 
 export default DetailPage;
-
