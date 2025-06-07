@@ -1,0 +1,11 @@
+/* src/scripts/pages/add-cerita/add-story-view.css */
+button[disabled] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+#camera-preview {
+  display: none;
+  margin-top: 1rem;
+  border: 1px solid #ddd;
+}
