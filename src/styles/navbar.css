@@ -59,36 +59,27 @@
    NAVBAR DESKTOP - WITH UNDERLINE ANIMATION
 ==================================== */
 
-.navbar-link a:not(.btn-login-navbar) {
-  position: relative;
-  padding-bottom: 5px; /* Ruang untuk underline */
+/* Khusus untuk tombol Tambah Cerita */
+.navbar-link a.btn-tambah-cerita {
+  color: white !important;         
+  position: static !important;      
 }
 
-/* Animasi underline */
-.navbar-link a:not(.btn-login-navbar)::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: #9c6b3b;
-  transition: width 0.3s ease;
+.navbar-link a.btn-tambah-cerita::after {
+  content: none !important;        
 }
 
-.navbar-link a:not(.btn-login-navbar):hover::after {
-  width: 100%;
+.navbar-link a.btn-tambah-cerita:hover {
+  color: white !important;          
+  background-color: #9c6b3b;        
+  text-decoration: none !important; 
 }
 
-/* Style untuk link aktif */
-.navbar-link a:not(.btn-login-navbar).active {
-  color: #9c6b3b;
+.navbar-link a.active {
+  font-weight: bold;
+  color: #9c6b3b; 
 }
 
-.navbar-link a:not(.btn-login-navbar).active::after {
-  width: 100%;
-  background-color: #7e5229;
-}
 
 /* ====================================
    HEADER STICKY & SCROLL SETTINGS
@@ -219,6 +210,72 @@ section {
     width: 100%;             
     padding-left: 0.5rem;    
   }
+}
+
+
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
+  /* margin-left: 1rem; */
+}
+
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: cover;
+  border: 2px solid #ffffff;
+  transition: transform 0.2s ease;
+}
+
+.profile-img:hover {
+  transform: scale(1.05);
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  width: 200px;
+  top: 100%;
+  background-color: white;
+  min-width: 150px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  z-index: 99;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 16px;
+  text-decoration: none;
+  color: #333;
+  transition: background 0.2s;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+.btn-tambah-cerita {
+  background-color: #9c6b3b;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-tambah-cerita:hover {
+  background-color: #9c6b3b;
 }
 
 

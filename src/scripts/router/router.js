@@ -7,7 +7,7 @@ import RingkasanPage from "../pages/ringkasan/ringkasan-page.js";
 import AdminPage from "../pages/admin/dashboard/admin-page.js";
 import ManajemenPage from "../pages/admin/manajemen/manajemen-page.js";
 import ProfilPenggunaPage from "../pages/profil-pengguna/profilpengguna-page.js";
-
+import AddCeritaPage from "../pages/tambah-cerita/addcerita-page.js";
 
 
 const routes = {
@@ -21,6 +21,7 @@ const routes = {
   "#/admin": AdminPage,
   "#/manajemen": ManajemenPage,
   "#/profil": ProfilPenggunaPage,
+  "#/add-cerita": AddCeritaPage,
 };
 
 export const renderPage = async () => {

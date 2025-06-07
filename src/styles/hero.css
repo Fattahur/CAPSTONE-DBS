@@ -169,3 +169,40 @@
     flex-direction: column;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.terpopuler-img {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 1rem auto;
+  padding: 1rem;
+  background: #f9f9f9;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.terpopuler-img img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.terpopuler-img h3 {
+  margin: 1rem 0 0.5rem;
+}
+
+
+
+

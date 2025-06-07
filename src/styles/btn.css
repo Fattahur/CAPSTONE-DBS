@@ -236,19 +236,18 @@ gap: 1rem;
 
 
 
-
 /* page cerita budaya */
 .cerita-container {
-max-width: 1200px;
-margin: 0 auto;
-padding: 1rem;
-margin-top: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  margin-top: 2rem;
 }
 
 .top-bar {
-  display: flex;
+  /* display: flex; */
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
   flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 2rem;
@@ -257,7 +256,7 @@ margin-top: 1rem;
 .search-filter-wrapper {
   display: flex;
   gap: 1rem;
-  flex-wrap: wrap;
+  margin-top: 1rem;
 }
 
 .search-input,
@@ -266,6 +265,14 @@ margin-top: 1rem;
   font-size: 1rem;
   border-radius: 8px;
   border: 1px solid #ccc;
+}
+
+.search-input {
+  flex: 1;
+}
+
+.filter-select {
+  width: 200px;
 }
 
 .terpopuler-img img {
@@ -277,10 +284,11 @@ margin-top: 1rem;
   margin-bottom: 2rem;
 }
 
+/* UBAH INI: fix 3 kolom */
 .gambar-grid,
 .rekomendasi-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(3, 1fr); /* force 3 columns */
   gap: 1.5rem;
 }
 
@@ -303,7 +311,7 @@ margin-top: 1rem;
 .jdl-cerita-terpopuler {
   font-size: 1.7rem;
   font-weight: 600;
-  /* margin: 1rem 0 1rem; */
+  margin: 1rem 0 1rem;
 }
 
 .jdl-rekomendasi {
@@ -312,13 +320,7 @@ margin-top: 1rem;
   margin: 2rem 0 1rem;
 }
 
-.jdl-rekomendasi {
-  font-size: 1.7rem;
-  font-weight: 600;
-  margin: 2rem 0 1rem;
-}
-
-.judul-cerita{
+.judul-cerita {
   font-size: 1.2rem;
   color: #000000;
   font-style: bold;
@@ -326,14 +328,14 @@ margin-top: 1rem;
   padding-left: 1rem;
 }
 
-.desc{
+.desc {
   font-size: 0.9rem;
   color: #555;
   margin: 0.25rem 0;
   padding-left: 1rem;
 }
 
- .lokasi {
+.lokasi {
   font-size: 0.85rem;
   color: #888;
   padding-left: 1rem;
@@ -358,22 +360,29 @@ margin-top: 1rem;
   font-size: 0.85rem;
 }
 
-
 .icon-group span {
   margin-left: 8px;
   font-size: 1.1rem;
   cursor: pointer;
 }
 
-
-@media (max-width: 768px) {
-.gambar-grid,
-.rekomendasi-grid {
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+/* RESPONSIF: Tablet */
+@media (max-width: 992px) {
+  .gambar-grid,
+  .rekomendasi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.jdl-cerita-terpopuler{
+/* RESPONSIF: HP */
+@media (max-width: 600px) {
+  .gambar-grid,
+  .rekomendasi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.jdl-cerita-terpopuler {
   font-size: 1.5rem;
   margin: 2rem 0 1rem;
-}
 }

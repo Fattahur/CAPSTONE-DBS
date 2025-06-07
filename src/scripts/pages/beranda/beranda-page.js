@@ -1,8 +1,18 @@
+
 import { html, render } from 'lit-html';
+import CeritaPopulerModel from '../../models/berandaModel.js';
+import BerandaPresenter from './beranda-presenter.js';
 
 const BerandaPage = {
-  async render(container) {
-    const template = html`
+  ceritaPopuler: [],
+  ceritaMingguan: [], 
+  container: null,
+
+  renderTemplate() {
+    const populer = this.ceritaPopuler;
+    const mingguan = this.ceritaMingguan;
+
+    return html`
       <section class="hero">
         <div class="container hero-overlay">
           <h1>
@@ -25,22 +35,19 @@ const BerandaPage = {
         <div class="container-beranda">
           <h2>Cerita Populer</h2>
           <div class="grid-3">
-            ${[
-              'images/upacara.jpg',
-              'images/borobudur.jpg',
-              'images/borobudur.jpg',
-            ].map(
-              (imgPath) => html`
-                <div class="card">
-                  <img src="${imgPath}" alt="Cerita Populer" />
-                  <h3>Subheading</h3>
-                  <p>
-                    Body text for whatever you’d like to add more to the
-                    subheading.
-                  </p>
-                </div>
-              `
-            )}
+            ${
+              populer.length > 0
+                ? populer.map(
+                    (item) => html`
+                      <div class="card">
+                        <img src="${item.gambar}" alt="${item.judul}" />
+                        <h3>${item.judul}</h3>
+                        <p>${item.isi}</p>
+                      </div>
+                    `
+                  )
+                : html`<p>Memuat cerita populer...</p>`
+            }
           </div>
         </div>
       </section>
@@ -56,32 +63,57 @@ const BerandaPage = {
             </div>
           </div>
           <div class="grid-3">
-            ${[
-              'images/upacara.jpg',
-              'images/borobudur.jpg',
-              'images/borobudur.jpg',
-              'images/borobudur.jpg',
-              'images/borobudur.jpg',
-              'images/borobudur.jpg',
-            ].map(
-              (imgPath) => html`
-                <div class="card">
-                  <img src="${imgPath}" alt="Cerita Mingguan" />
-                  <h3>Judul Cerita</h3>
-                  <p>Deskripsi singkat cerita mingguan budaya.</p>
-                </div>
-              `
-            )}
+            ${
+              mingguan.length > 0
+                ? mingguan.map(
+                    (item) => html`
+                      <div class="card">
+                        <img src="${item.gambar}" alt="${item.judul}" />
+                        <h3>${item.judul}</h3>
+                        <p>${item.isi}</p>
+                      </div>
+                    `
+                  )
+                : html`<p>Memuat cerita mingguan...</p>`
+            }
           </div>
         </div>
       </section>
     `;
-
-    render(template, container);
   },
 
-  async afterRender(container) {
-    // Tambahkan interaksi jika ada
+  render(container) {
+    this.container = container;
+    render(this.renderTemplate(), container);
+  },
+
+  updateCeritaPopuler(data) {
+    this.ceritaPopuler = data;
+    if (this.container) {
+      this.render(this.container);
+    }
+  },
+
+  updateCeritaMingguan(data) {
+    this.ceritaMingguan = data;
+    if (this.container) {
+      this.render(this.container);
+    }
+  },
+
+  showError(message) {
+    this.ceritaPopuler = [];
+    this.ceritaMingguan = [];
+    if (this.container) {
+      this.render(this.container);
+    }
+    alert(message);
+  },
+
+  async afterRender() {
+    this.presenter = new BerandaPresenter(new CeritaPopulerModel(), this);
+    await this.presenter.loadCeritaPopuler();
+    await this.presenter.loadCeritaMingguan();  
   },
 };
 

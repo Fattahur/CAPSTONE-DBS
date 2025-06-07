@@ -1,7 +1,7 @@
 
 import { putAccessToken, putUser } from '../utils/auth.js';
 
-export const BASE_URL = 'https://3744-203-29-27-134.ngrok-free.app/api/auth';
+export const BASE_URL = 'https://ceritanusantara.site/api/auth';
 
 export const authService = {
   async register({ name, email, password }) {
@@ -47,7 +47,7 @@ export const authService = {
 
     // Simpan token & user (gunakan fungsi yang kamu punya)
     putAccessToken(responseJson.token);
-    putUser({ email }); // kamu bisa ambil lebih banyak info dari response jika disediakan
+    putUser({ email }); 
 
     return {
       success: true,
