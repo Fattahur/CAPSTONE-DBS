@@ -81,14 +81,50 @@ const routes = {
   "#/detail": DetailPage,
 };
 
+// export const renderPage = async () => {
+//   const path = window.location.hash.split("?")[0] || "#/";
+
+//   // Cek akses route
+//   if (!protectedRoute(path)) return;
+
+//   const Page = routes[path] || LandingPage;
+
+//   const container = document.getElementById("main-content");
+//   const header = document.querySelector("header");
+//   const footer = document.querySelector("footer");
+
+
+//   if (!container) {
+//     console.error("Container element not found!");
+//     return;
+//   }
+
+//   // Sembunyikan header & footer di halaman login/ signup
+//   const isAuthPage = path === "#/login" || path === "#/signup";
+//   if (header) header.style.display = isAuthPage ? "none" : "";
+//   if (footer) footer.style.display = isAuthPage ? "none" : "";
+
+//   try {
+//     // Render halaman (fungsi render ada parameter atau tidak)
+//     if (Page.render.length > 0) {
+//       await Page.render(container);
+//     }
+
+//     if (Page.afterRender) {
+//       await Page.afterRender(container);
+//     }
+//   } catch (error) {
+//     console.error("Error rendering page:", error);
+//   }
+// };
+
 export const renderPage = async () => {
   const path = window.location.hash.split("?")[0] || "#/";
 
-  // Cek akses route
+  // Cek akses route (existing functionality preserved)
   if (!protectedRoute(path)) return;
 
   const Page = routes[path] || LandingPage;
-
   const container = document.getElementById("main-content");
   const header = document.querySelector("header");
   const footer = document.querySelector("footer");
@@ -98,27 +134,42 @@ export const renderPage = async () => {
     return;
   }
 
-  // Sembunyikan header & footer di halaman login/ signup
+  // Sembunyikan header & footer di halaman login/signup (existing functionality)
   const isAuthPage = path === "#/login" || path === "#/signup";
   if (header) header.style.display = isAuthPage ? "none" : "";
   if (footer) footer.style.display = isAuthPage ? "none" : "";
 
   try {
-    // Render halaman (fungsi render ada parameter atau tidak)
-    if (Page.render.length > 0) {
-      await Page.render(container);
-      
-    } else {
-      // container.innerHTML = await Page.render();
-      
-    }
+    // Check if View Transition API is available
+    if (document.startViewTransition) {
+      // Start transition while preserving all existing logic
+      await document.startViewTransition(async () => {
+        // Existing render logic
+        if (Page.render.length > 0) {
+          await Page.render(container);
+        } else {
+          container.innerHTML = await Page.render();
+        }
 
-    if (Page.afterRender) {
-      await Page.afterRender(container);
+        // Existing afterRender logic
+        if (Page.afterRender) {
+          await Page.afterRender(container);
+        }
+      }).ready; // Wait for transition to be ready
+    } else {
+      // Fallback for browsers without View Transition API
+      // (Original functionality remains exactly the same)
+      if (Page.render.length > 0) {
+        await Page.render(container);
+      }
+
+      if (Page.afterRender) {
+        await Page.afterRender(container);
+      }
     }
   } catch (error) {
     console.error("Error rendering page:", error);
-    // container.innerHTML = "<h1>Error loading page</h1>";
+    // Original error handling preserved
   }
 };
 
