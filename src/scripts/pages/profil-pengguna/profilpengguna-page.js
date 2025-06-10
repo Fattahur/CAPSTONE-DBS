@@ -1,122 +1,53 @@
 import { html, render } from 'lit-html';
-import ProfilPenggunaPresenter from '../profil-pengguna/profilpengguna-presenter';  // Import Presenter
+import ProfilPenggunaPresenter from './profilpengguna-presenter.js';
 
 const ProfilPenggunaPage = {
-  name: '',
-  dob: '',
-  gender: '',
-  phoneNumber: '',
-  address: '',
-  profileImage: '',
-
-  // Fungsi untuk menginisialisasi presenter
-  setPresenter(presenter) {
-    this.presenter = presenter;
-  },
-
-  // Fungsi render untuk menampilkan halaman
   render(container) {
+    if (!document.getElementById('profil-pengguna-style')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'src/scripts/pages/profilpengguna/profilpengguna-view.css';
+      link.id = 'profil-pengguna-style';
+      document.head.appendChild(link);
+    }
+
     const template = html`
-      <div class="profil-container">
-        <div class="profil-content">
-          <h1>Edit Profil Anda</h1>
-          <div class="profile-img-container">
-            <img src="${this.profileImage || 'https://example.com/foto.jpg'}" alt="Foto Profil" class="profile-img" id="profileBtn" />
-          </div>
-          <form @submit="${(e) => this.handleSubmit(e)}">
-            <div class="form-group">
-              <label for="name">Nama Lengkap</label>
-              <input
-                id="name"
-                type="text"
-                placeholder="Masukkan Nama Lengkap"
-                .value="${this.name}"
-                @input="${(e) => this.name = e.target.value}"
-              />
-            </div>
+      <main class="container-profil" role="main" aria-label="Edit Profil">
+        <h1>Edit Profil Anda</h1>
+        
+        <form id="profil-form" novalidate autocomplete="off">
+          <label for="full-name">Nama Lengkap</label>
+          <input type="text" id="full-name" name="full-name" placeholder="Masukkan Nama Lengkap" required />
 
-            <div class="form-group">
-              <label for="dob">Tanggal Lahir</label>
-              <input
-                id="dob"
-                type="date"
-                .value="${this.dob}"
-                @input="${(e) => this.dob = e.target.value}"
-              />
-            </div>
+          <label for="birth-date">Tanggal Lahir</label>
+          <input type="date" id="birth-date" name="birth-date" required />
 
-            <div class="form-group">
-              <label for="gender">Gender</label>
-              <select
-                id="gender"
-                .value="${this.gender}"
-                @change="${(e) => this.gender = e.target.value}"
-              >
-                <option value="">Pilih Gender</option>
-                <option value="male">Laki-laki</option>
-                <option value="female">Perempuan</option>
-              </select>
-            </div>
+          <label for="gender">Gender</label>
+          <select id="gender" name="gender" required>
+            <option value="">Pilih Gender</option>
+            <option value="male">Laki-Laki</option>
+            <option value="female">Perempuan</option>
+          </select>
 
-            <div class="form-group">
-              <label for="phoneNumber">No Telepon</label>
-              <input
-                id="phoneNumber"
-                type="text"
-                placeholder="Masukkan No Telepon"
-                .value="${this.phoneNumber}"
-                @input="${(e) => this.phoneNumber = e.target.value}"
-              />
-            </div>
+          <label for="phone">No Telepon</label>
+          <input type="tel" id="phone" name="phone" placeholder="Masukkan No Telepon" required />
 
-            <div class="form-group">
-              <label for="address">Alamat</label>
-              <input
-                id="address"
-                type="text"
-                placeholder="Masukkan Alamat"
-                .value="${this.address}"
-                @input="${(e) => this.address = e.target.value}"
-              />
-            </div>
+          <label for="address">Alamat</label>
+          <textarea id="address" name="address" placeholder="Masukkan Alamat" required></textarea>
 
-            <div class="form-group">
-              <label for="profileImage">Gambar Profil</label>
-              <div class="profile-image-container">
-                ${this.profileImage ? html`<img src="${this.profileImage}" alt="Profile Image" class="profile-image" />` : ''}
-              </div>
-              <input
-                id="profileImage"
-                type="file"
-                accept="image/*"
-                @change="${(e) => this.handleImageChange(e)}"
-                class="profile-file-input"
-              />
-            </div>
+          <label for="profile-image">Gambar Profil</label>
+          <input type="file" id="profile-image" name="profile-image" accept="image/*" />
 
-            <button type="submit" class="submit-btn">Simpan</button>
-            <button type="button" @click="${this.handleReset}" class="reset-btn">Reset</button>
-          </form>
-        </div>
-      </div>
+          <button type="submit">Simpan</button>
+          <button type="reset">Reset</button>
+        </form>
+      </main>
     `;
+
     render(template, container);
-  },
 
-  // Handle submit form
-  handleSubmit(e) {
-    e.preventDefault();
-    this.presenter.handleSubmit(e, this.name, this.dob, this.gender, this.phoneNumber, this.address, this.profileImage);
-  },
-
-  // Reset form
-  handleReset() {
-    this.presenter.handleReset();
-  },
-
-  // Handle image change (upload image)
-  handleImageChange(e) {
-    this.presenter.handleImageChange(e);
+    // Inisialisasi presenter setelah render
+    ProfilPenggunaPresenter.init();
   }
 };
 
