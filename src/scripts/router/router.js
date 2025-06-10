@@ -147,18 +147,13 @@ export const renderPage = async () => {
         // Existing render logic
         if (Page.render.length > 0) {
           await Page.render(container);
-        } else {
-          container.innerHTML = await Page.render();
         }
-
         // Existing afterRender logic
         if (Page.afterRender) {
           await Page.afterRender(container);
         }
-      }).ready; // Wait for transition to be ready
+      }).ready; 
     } else {
-      // Fallback for browsers without View Transition API
-      // (Original functionality remains exactly the same)
       if (Page.render.length > 0) {
         await Page.render(container);
       }
@@ -169,7 +164,6 @@ export const renderPage = async () => {
     }
   } catch (error) {
     console.error("Error rendering page:", error);
-    // Original error handling preserved
   }
 };
 
