@@ -4,14 +4,15 @@ export default class AddProfileModel {
   // Fungsi untuk mengirimkan data profil pengguna ke API
   async addProfile(formData) {
     try {
-      const response = await fetch(`${BASE_URL}/auth/detail-users`, {
+      const response = await fetch(`${BASE_URL}/detail-users`, {
         method: 'POST', // Atau 'PUT' jika API mendukung update dengan PUT
         body: formData,
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`, // Menggunakan token dari localStorage
         },
       });
-
+      
+      
       const result = await response.json();
       
       // Memeriksa apakah request berhasil
