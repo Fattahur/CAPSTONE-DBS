@@ -114,3 +114,7 @@
   transform: scale(1.05);
   opacity: 0.95;
 }
+
+.d-none {
+  display: none;
+}

@@ -5,7 +5,6 @@ const AdminPresenter = {
     try {
       const response = await fetch(`${BASE_URL}/jumlah-cerita`, {
         headers: {
-          'ngrok-skip-browser-warning': 'true',
           'Accept': 'application/json',
         },
       });
@@ -28,7 +27,6 @@ const AdminPresenter = {
     try {
       const response = await fetch(`${BASE_URL}/waiting-list`, {
         headers: {
-          'ngrok-skip-browser-warning': 'true',
           'Accept': 'application/json',
         },
       });
@@ -46,7 +44,6 @@ const AdminPresenter = {
   try {
     const response = await fetch(`${BASE_URL}/jumlah-cerita`, {
       headers: {
-        'ngrok-skip-browser-warning': 'true',
         'Accept': 'application/json',
       },
     });
@@ -64,7 +61,6 @@ async getAllStories() {
   try {
     const response = await fetch(`${BASE_URL}/semua-cerita`, {
       headers: {
-        'ngrok-skip-browser-warning': 'true',
         'Accept': 'application/json',
       },
     });

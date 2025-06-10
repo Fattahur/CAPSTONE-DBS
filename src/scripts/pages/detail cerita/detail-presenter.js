@@ -50,6 +50,7 @@ class DetailCeritaPresenter {
     } catch (error) {
       this.view.showError(error.message);
     }
+    
   }
 }
 

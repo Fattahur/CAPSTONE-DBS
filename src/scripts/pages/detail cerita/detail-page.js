@@ -1,16 +1,14 @@
 
 
-
 import DetailCeritaPresenter from '../detail cerita/detail-presenter.js';
 
 const DetailPage = {
   async render() {
     return `
       <section class="detail-container">
-      <button class="back-button" id="back-to-landing">
-        <i class="fas fa-arrow-left"></i>
-        
-      </button>
+        <button class="back-button" id="back-to-landing">
+          <i class="fas fa-arrow-left"></i>
+        </button>
         <h2>Detail Cerita</h2>
         
         <img id="gambar" src="" alt="Gambar Cerita" 
@@ -31,8 +29,9 @@ const DetailPage = {
           <p><strong>Deskripsi:</strong> <span id="isi"></span></p>
         </section>
 
-        <section class="map-wrapper" style="height: 300px;">
-          <div id="map" style="width: 100%; height: 100%; background: #eee;">Map here</div>
+        <section class="map-wrapper">
+          <div id="map"></div>
+          <div id="map-info" class="map-info"></div>
         </section>
 
         <section class="comments-section">
@@ -48,6 +47,28 @@ const DetailPage = {
   },
 
   async afterRender() {
+    // Load Leaflet CSS dynamically
+    const loadLeafletCSS = () => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+      document.head.appendChild(link);
+    };
+
+    // Load Leaflet JS dynamically
+    const loadLeafletJS = () => {
+      return new Promise((resolve) => {
+        const script = document.createElement('script');
+        script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+        script.onload = resolve;
+        document.body.appendChild(script);
+      });
+    };
+
+    // Load required assets
+    loadLeafletCSS();
+    await loadLeafletJS();
+
     const [, queryString] = window.location.hash.split('?');
     const params = new URLSearchParams(queryString);
     const id = params.get('id');
@@ -59,55 +80,32 @@ const DetailPage = {
 
     const view = {
       showDetailCerita: (data) => {
-        console.log('URL gambar:', data.gambar);
-
-        // Perbaiki URL gambar menjadi URL lengkap
+        // Update konten cerita
         let gambarUrl = data.gambar;
         if (gambarUrl && !gambarUrl.startsWith('http')) {
           gambarUrl = 'https://ceritanusantara.site/uploads/' + gambarUrl;
         }
 
-        const imgElem = document.getElementById('gambar');
-        if (imgElem) {
-          imgElem.src = gambarUrl || '';
-          imgElem.alt = data.judul || 'Gambar Cerita';
-        }
+        document.getElementById('gambar').src = gambarUrl || '';
+        document.getElementById('judul').textContent = data.judul || '-';
+        document.getElementById('penulis').textContent = data.namaUser || '-';
+        document.getElementById('isi').textContent = data.isi || '-';
+        document.getElementById('likeCount').textContent = data.like?.total || '0';
+        document.getElementById('favCount').textContent = data.favorit?.total || '0';
 
-        const judulElem = document.getElementById('judul');
-        if (judulElem) judulElem.textContent = data.judul || '-';
-
-        const penulisElem = document.getElementById('penulis');
-        if (penulisElem) penulisElem.textContent = data.namaUser || '-';
-
-        const isiElem = document.getElementById('isi');
-        if (isiElem) isiElem.textContent = data.isi || '-';
-
-        const likeCountElem = document.getElementById('likeCount');
-        if (likeCountElem) likeCountElem.textContent = (data.like && data.like.total) || '0';
-
-        const favCountElem = document.getElementById('favCount');
-        if (favCountElem) favCountElem.textContent = (data.favorit && data.favorit.total) || '0';
-
+        // Update komentar
         const commentsList = document.getElementById('commentsList');
-        if (commentsList) {
-          commentsList.innerHTML = '';
-          if (!data.komentar || data.komentar.length === 0) {
-            commentsList.innerHTML = '<p>Belum ada komentar.</p>';
-          } else {
-            data.komentar.forEach(k => {
-              const div = document.createElement('div');
-              div.classList.add('comment-item');
-              div.innerHTML = `<strong>${k.username}</strong> (${k.tanggal}): <p>${k.isiKomentar}</p>`;
-              commentsList.appendChild(div);
-            });
-          }
-        }
+        commentsList.innerHTML = data.komentar?.length > 0
+          ? data.komentar.map(k => `
+              <div class="comment-item">
+                <strong>${k.username}</strong> (${k.tanggal}): 
+                <p>${k.isiKomentar}</p>
+              </div>
+            `).join('')
+          : '<p>Belum ada komentar.</p>';
 
-        // Map render (dummy)
-        const mapElem = document.getElementById('map');
-        if (mapElem) {
-          mapElem.textContent = `Lokasi: ${data.lokasi || '-'}`;
-        }
+        // Render peta Leaflet
+        this.initLeafletMap(data.lokasi, data.judul);
       },
 
       showError: (message) => {
@@ -118,39 +116,109 @@ const DetailPage = {
     const presenter = new DetailCeritaPresenter(view);
     presenter.loadDetailCerita(id);
 
-    // Pasang event listener dengan pengecekan null
-    const likeBtn = document.getElementById('likeBtn');
-    if (likeBtn) {
-      likeBtn.addEventListener('click', () => {
-        alert('Like belum diimplementasikan');
-      });
-    }
+    // Event listeners
+    document.getElementById('likeBtn')?.addEventListener('click', () => {
+      alert('Like belum diimplementasikan');
+    });
 
-    const bookmarkBtn = document.getElementById('bookmarkBtn');
-    if (bookmarkBtn) {
-      bookmarkBtn.addEventListener('click', () => {
-        alert('Favorit belum diimplementasikan');
-      });
-    }
+    document.getElementById('bookmarkBtn')?.addEventListener('click', () => {
+      alert('Favorit belum diimplementasikan');
+    });
 
-    const commentForm = document.getElementById('commentForm');
-    if (commentForm) {
-      commentForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const input = document.getElementById('commentInput');
-        const value = input ? input.value.trim() : '';
-        if (value) {
-          alert('Fitur kirim komentar belum diimplementasikan');
-          if (input) input.value = '';
+    document.getElementById('commentForm')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = document.getElementById('commentInput');
+      const value = input?.value.trim();
+      if (value) {
+        alert('Fitur komentar belum diimplementasikan');
+        if (input) input.value = '';
+      }
+    });
+  },
+
+  initLeafletMap(locationData, judulCerita = 'Lokasi Cerita') {
+    // Default coordinates (Monas Jakarta)
+    let defaultLat = -6.1754;
+    let defaultLng = 106.8272;
+    let zoomLevel = 13;
+    let hasValidLocation = false;
+
+    // Parse location data (format: "lat,lng" or {latitude, longitude})
+    if (locationData) {
+      try {
+        if (typeof locationData === 'string') {
+          const coords = locationData.split(',').map(Number);
+          if (coords.length === 2 && !isNaN(coords[0]) && !isNaN(coords[1])) {
+            [defaultLat, defaultLng] = coords;
+            hasValidLocation = true;
+          }
+        } else if (locationData.latitude && locationData.longitude) {
+          defaultLat = parseFloat(locationData.latitude);
+          defaultLng = parseFloat(locationData.longitude);
+          hasValidLocation = true;
         }
-      });
+      } catch (e) {
+        console.error("Error parsing location:", e);
+      }
     }
+
+    if (L.DomUtil.get('map') != null) {
+  L.DomUtil.get('map')._leaflet_id = null;
+}
+    // Initialize map
+    const map = L.map('map').setView([defaultLat, defaultLng], hasValidLocation ? 15 : zoomLevel);
+
+    // Add tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    // Custom marker icon
+    const storyIcon = L.icon({
+      iconUrl: 'https://cdn-icons-png.flaticon.com/512/447/447031.png',
+      iconSize: [32, 32],
+      iconAnchor: [16, 32],
+    });
+
+    // Add marker if location is valid
+    if (hasValidLocation) {
+      L.marker([defaultLat, defaultLng], { icon: storyIcon })
+        .addTo(map)
+        .bindPopup(`
+          <b>${judulCerita}</b><br>
+          <small>Lat: ${defaultLat.toFixed(4)}, Lng: ${defaultLng.toFixed(4)}</small>
+        `)
+        .openPopup();
+
+      // Add circle radius (500m)
+      L.circle([defaultLat, defaultLng], {
+        color: '#3388ff',
+        fillColor: '#3388ff',
+        fillOpacity: 0.2,
+        radius: 500
+      }).addTo(map);
+    } else {
+      document.getElementById('map-info').innerHTML = 
+        '<p class="text-muted">Lokasi cerita tidak tersedia.</p>';
+    }
+
+    // Add geolocation (user position)
+    map.locate({ setView: false, maxZoom: 16 });
+    
+    map.on('locationfound', (e) => {
+      const userIcon = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/447/447042.png',
+        iconSize: [32, 32],
+      });
+
+      L.marker([e.latitude, e.longitude], { icon: userIcon })
+        .addTo(map)
+        .bindPopup('Lokasi Anda');
+    });
   }
 };
 
 export default DetailPage;
-
-
 
 
 
