@@ -1,3 +1,4 @@
+
 .btn-selengkapnya {
   display: inline-block;
   margin-top: 12px;
@@ -17,12 +18,14 @@
 
 /* tombol eksplorasi di dalam hero  */
 .btn-explore {
-background-color: #9c6b3b;
-border-radius: 999px;
-color: white;
-padding: 0.75rem 2rem;
+display: inline-block;
+padding: 0.8rem 1.5rem;
+background-color: #FFD54F;
+color: #4E342E;
+text-decoration: none;
+border-radius: 0.5rem;
 font-weight: bold;
-transition: background 0.3s;
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 .btn-explore\:hover {

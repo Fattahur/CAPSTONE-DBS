@@ -29,32 +29,31 @@ export const authService = {
     };
   },
 
-  async login({ email, password }) {
-    const response = await fetch(`${BASE_URL}/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
+// 
 
-    const responseJson = await response.json();
+async login({ email, password }) {
+  const response = await fetch(`${BASE_URL}/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email, password }),
+  });
 
-    if (!response.ok || !responseJson.token) {
-      console.error('Login error:', responseJson);
-      throw new Error(responseJson.message || 'Login gagal');
-    }
+  const responseJson = await response.json();
 
-    // Simpan token & user (gunakan fungsi yang kamu punya)
-    putAccessToken(responseJson.token);
-    putUser({ email }); 
+  if (!response.ok || !responseJson.token) {
+    console.error('Login error:', responseJson);
+    throw new Error(responseJson.message || 'Login gagal');
+  }
 
-    return {
-      success: true,
-      data: {
-        token: responseJson.token,
-        email,
-      },
-    };
-  },
-};
+  // Simpan token & user lengkap
+  putAccessToken(responseJson.token);
+  putUser(responseJson.user);  // simpan user lengkap, bukan hanya email
+
+  return {
+    success: true,
+    data: responseJson,  // kembalikan response lengkap dari backend
+  };
+},
+}

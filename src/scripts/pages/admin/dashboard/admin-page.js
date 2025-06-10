@@ -1,3 +1,5 @@
+
+import { html, render } from 'lit-html';
 import AdminPresenter from "../dashboard/admin-presenter.js";
 import { BASE_URL } from '../../../api/api.js';
 
@@ -5,31 +7,39 @@ const AdminPage = {
   weeklyData: [],
   allStories: [],
   chartInstance: null,
+  autoRefreshInterval: null,
 
- async render() {
-  const totalCerita = await AdminPresenter.getTotalCerita();
-  const totalWaiting = await AdminPresenter.getTotalWaitingList();
+  async render() {
+    const totalCerita = await AdminPresenter.getTotalCerita();
+    const totalWaiting = await AdminPresenter.getTotalWaitingList();
 
-  const recentStories = this.allStories
-    .slice()
-    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-    .slice(0, 2);
+    // Ambil semua cerita
+    this.allStories = await AdminPresenter.getAllStories();
 
-  const recentHtml = recentStories.length > 0 ? recentStories.map(story => {
-    const shortDesc = story.deskripsi || "Deskripsi tidak tersedia";
-    const imageUrl = `${BASE_URL.replace('/api/auth', '')}/uploads/${story.gambar}`;
+    // Ambil 2 cerita terbaru berdasarkan tanggal
+    const recentStories = this.allStories
+      .slice()
+      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+      .slice(0, 2);
 
-    return `
-      <div class="recent-card">
-        <img src="${imageUrl}" alt="Gambar cerita ${story.judul}" class="recent-image" />
-        <h4>${story.judul}</h4>
-        <p class="region">${story.lokasi}</p>
-        <p class="desc">${shortDesc}</p>
-      </div>
-    `;
-  }).join("") : `<p>Tidak ada cerita terbaru</p>`;
+    // Template cerita terbaru
+    const recentHtml = recentStories.length > 0
+      ? recentStories.map(story => {
+          const shortDesc = story.deskripsi || "Deskripsi tidak tersedia";
+          const imageUrl = `${BASE_URL.replace('/api/auth', '')}/uploads/${story.gambar}`;
+          return html`
+            <div class="recent-card">
+              <img src="${imageUrl}" alt="Gambar cerita ${story.judul}" class="recent-image" />
+              <h4>${story.judul}</h4>
+              <p class="region">${story.lokasi}</p>
+              <p class="desc">${shortDesc}</p>
+            </div>
+          `;
+        })
+      : html`<p>Tidak ada cerita terbaru</p>`;
 
-    return `
+    // Template utama halaman admin
+    return html`
       <section class="admin-dashboard">
         <!-- Statistik Garis -->
         <div class="chart-section">
@@ -92,7 +102,10 @@ const AdminPage = {
   },
 
   async afterRender() {
-    await this.refreshData();
+    // Render awal ke container
+    
+    const container = document.getElementById('main-content');
+    render(await this.render(), container);
 
     // Tunggu canvas siap
     await new Promise((resolve) => {
@@ -118,16 +131,21 @@ const AdminPage = {
       this.renderChart();
     }
 
-    // Setup auto refresh tiap 30 detik
     this.startAutoRefresh();
   },
 
   async refreshData() {
+    // Update data cerita
     this.allStories = await AdminPresenter.getAllStories();
-    const container = document.querySelector('.admin-dashboard');
-    if (container) {
-      container.innerHTML = await this.render();
-    }
+    
+    // Re-render dengan data terbaru
+    const container = document.getElementById('main-content');
+    render(await this.render(), container);
+
+    // Render ulang chart data
+    const tanggalCerita = await AdminPresenter.getWeeklyCeritaData();
+    this.weeklyData = this.processWeeklyData(tanggalCerita);
+    this.renderChart();
   },
 
   processWeeklyData(tanggalCerita) {
@@ -181,18 +199,11 @@ const AdminPage = {
   },
 
   startAutoRefresh() {
-    // Hentikan jika sudah ada interval
     if (this.autoRefreshInterval) clearInterval(this.autoRefreshInterval);
 
-    // Set interval tiap 30 detik
     this.autoRefreshInterval = setInterval(async () => {
       console.log("Auto refresh data...");
       await this.refreshData();
-
-      // Refresh chart juga
-      const tanggalCerita = await AdminPresenter.getWeeklyCeritaData();
-      this.weeklyData = this.processWeeklyData(tanggalCerita);
-      this.renderChart();
     }, 30000);
   }
 };

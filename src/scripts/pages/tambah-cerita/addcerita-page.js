@@ -4,13 +4,13 @@ import AddCeritaPresenter from './addcerita-presenter.js';
 const AddCeritaPage = {
   render(container) {
     
-    if (!document.getElementById('add-story-style')) {
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = 'src/scripts/pages/add-cerita/add-story-view.css';
-      link.id = 'add-story-style';
-      document.head.appendChild(link);
-    }
+    // if (!document.getElementById('add-story-style')) {
+    //   const link = document.createElement('link');
+    //   // link.rel = 'stylesheet';
+    //   // link.href = 'src/scripts/pages/add-cerita/add-story-view.css';
+    //   // link.id = 'add-story-style';
+    //   document.head.appendChild(link);
+    // }
 
     const template = html`
       <main class="container_cerita" role="main" aria-label="Tambah Cerita">

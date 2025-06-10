@@ -1,6 +1,6 @@
 /* === HERO SECTION === */
 .beranda {
-  padding-top: 8rem;
+  padding-top: 9rem;
   padding-bottom: 6rem;
 }
 
@@ -18,6 +18,7 @@
   font-size: 2.75rem;
   font-weight: 800;
   line-height: 1.25;
+  text-align: left;
   margin-bottom: 1.5rem;
   color: #333;
 }
@@ -83,10 +84,12 @@
   
   .hero-text h1 {
     font-size: 2.25rem;
+    text-align: center;
   }
   
   .hero-text p {
     font-size: 1rem;
+    text-align: center;
   }
 }
 

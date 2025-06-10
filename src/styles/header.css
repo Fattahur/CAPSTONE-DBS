@@ -2,9 +2,15 @@
 /* CSS untuk pengaturan gaya header */
 
 .header {
-    background-color: #ffffff;
-    border-bottom: 1px solid #eee;
-    padding: 1rem 0;
+  padding: 1rem 0;
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 1);
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   
   .container {
@@ -13,4 +19,16 @@
     margin: 0 auto;
   }
   
+.header.scrolled-down {
+  background-color: rgba(255, 255, 255, 0.7); 
+  backdrop-filter: blur(6px); 
+  box-shadow: none;
 
+}
+
+.header.scrolled-up {
+  background-color: rgba(255, 255, 255, 1); 
+  backdrop-filter: none;
+  box-shadow: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}

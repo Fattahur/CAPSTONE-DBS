@@ -399,3 +399,74 @@
 }
 
 
+
+
+
+/* INI BARU */
+#typing-text::after {
+  content: '|';
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Global styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #FAF3E0;
+  color: #4E342E;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Typing text wrapper */
+.typing-wrapper {
+  height: 9em; /* Untuk 2 baris teks */
+  overflow: hidden;
+  line-height: 1.8em;
+  position: relative;
+}
+
+#typing-text {
+  white-space: pre-line; /* agar \n jadi baris baru */
+}
+
+/* Hero text styles */
+.hero-text h1 {
+  font-size: 2.8rem;
+  color: #B71C1C;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+}
+
+.hero-text p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Kutipan */
+blockquote {
+  font-style: italic;
+  color: #6D4C41;
+  border-left: 4px solid #FFD54F;
+  padding-left: 1rem;
+  margin: 2rem 0;
+}
+
+
+@media (max-width: 600px) {
+  .typing-wrapper {
+    height: 12em; 
+  }
+}
+
+
+/* INI BARU */
+
+
+
