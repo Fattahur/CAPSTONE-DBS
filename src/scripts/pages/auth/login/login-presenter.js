@@ -21,7 +21,8 @@ export default class LoginPresenter {
         return;
       }
 
-      this.#view.loginSuccessfully('Login berhasil!');
+      this.#view.loginSuccessfully(result.message);
+
     } catch (error) {
       this.#view.loginFailed(error.message);
     } finally {

@@ -113,27 +113,8 @@ const JelajahPage = {
   },
 
   async afterRender(container) {
-  try {
-    const response = await fetch('https://3744-203-29-27-134.ngrok-free.app/api/auth/jumlah-cerita', {
-      headers: {
-        'ngrok-skip-browser-warning': 'true',
-        'Accept': 'application/json'
-      }
-    });
-
-    const data = await response.json();
-
-    const jumlahCeritaElement = container.querySelector('#jumlah-cerita-text');
-    if (data.total_cerita !== undefined) {
-      jumlahCeritaElement.textContent = `Total cerita yang telah dibagikan: ${data.total_cerita}`;
-    } else {
-      jumlahCeritaElement.textContent = 'Gagal memuat jumlah cerita';
-    }
-  } catch (error) {
-    const jumlahCeritaElement = container.querySelector('#jumlah-cerita-text');
-    jumlahCeritaElement.textContent = 'Terjadi kesalahan saat memuat data.';
-    console.error('Error fetching jumlah cerita:', error);
-  }
-}
+  
+    // Tambahkan interaksi/animasi di sini jika perlu
+  },
 };
 export default JelajahPage;

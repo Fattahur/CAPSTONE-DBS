@@ -17,10 +17,10 @@ body {
 }
 
 
-main, #main-content, .content, .hero-section, nav, header {
-  position: relative;
-  /* z-index: 1; */
-}
+/* main, #main-content, .content, .hero-section, nav, header {
+  position: relative; 
+   z-index: 1;
+} */
 
 .footer {
   background-color: #f3d8b4;
