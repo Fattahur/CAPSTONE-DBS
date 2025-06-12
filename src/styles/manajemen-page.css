@@ -118,3 +118,8 @@
 .d-none {
   display: none;
 }
+
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
