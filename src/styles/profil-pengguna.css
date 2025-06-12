@@ -1,171 +1,183 @@
-/* Global Styles */
+/* Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f5f6f7;
-    color: #333;
-  }
-  
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  /* Profil Content */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f5f6f7;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Container utama */
+.profil-container {
+  background: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  max-width: 550px;
+  margin: 60px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Judul halaman */
+.profil-title {
+  font-size: 2rem;
+  color: #e9a040;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Container dan gambar profil */
+.profile-image-container {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Gambar Profil dalam Form */
+.profile-img {
+  max-width: 200px;  /* Ukuran besar untuk gambar di form */
+  max-height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  /* margin-bottom: 20px; */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Teks "*foto" */
+p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+/* Inputan */
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 4px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #333;
+  transition: border 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #5e9ca0;
+  outline: none;
+}
+
+input:hover, select:hover, textarea:hover {
+  border-color: #5e9ca0;
+}
+
+/* Tombol Upload Gambar */
+input[type="file"].profile-file-input {
+  display: block;
+  margin-top: 8px;
+  padding: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+}
+
+/* Tombol Simpan */
+button.submit-btn {
+  background-color: #18f807;
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+button.submit-btn:hover {
+  background-color: #14c906;
+}
+
+/* Tombol Reset */
+button.reset-btn {
+  background-color: #fd0000;
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+button.reset-btn:hover {
+  background-color: #c70000;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
   .profil-container {
-    background: #fff;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    margin: 120px auto 70px auto;  /* Menambahkan margin atas untuk memberi jarak dari header */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin: 20px;
   }
-  
-  .profil-content h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: #e9a040;
+
+  .profil-title {
+    font-size: 1.6rem;
   }
-  
-  .form-group {
-    margin-bottom: 15px;
-    width: 100%;
-  }
-  
-  label {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #333;
-  }
-  
-  input, select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-    color: #333;
-  }
-  
-  input[type="date"] {
-    padding: 8px;
-  }
-  
-  /* Tombol Simpan */
-  button.submit-btn {
-    background-color: #18f807;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    width: 100%;
-    transition: background-color 0.3s ease;
-  }
-  
-  button.submit-btn:hover {
-    background-color: #f3d8b4;
-  }
-  
-  /* Tombol Reset (Merah) */
-  button.reset-btn {
-    background-color: #fd0000;  /* Warna merah */
-    color: #070707;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
-  }
-  
-  button.reset-btn:hover {
-    background-color: #d1d1d1;  /* Warna sedikit lebih terang saat hover */
-  }
-  
-  /* Gambar Profil di Header */
-  #profileBtn {
-    width: 40px;  /* Ukuran kecil untuk gambar di header */
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  /* Gambar Profil dalam Form */
-  .profile-img {
-    max-width: 200px;  /* Ukuran besar untuk gambar di form */
-    max-height: 200px;
-    border-radius: 50%;
-    object-fit: cover;
-    /* margin-bottom: 20px; */
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  /* Gambar Profil yang sudah diupload dalam form */
+
   .profile-image-container {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 300%;
-    max-width: 250px;
-    max-height: 250px;
-    border-radius: 50%;
-    overflow: hidden;
+    width: 100px;
+    height: 100px;
   }
-  
-  .profile-image {
-    width: 300%;
-    height: auto;
-    object-fit: cover;
+
+  .profile-img {
+    width: 100px;
+    height: 100px;
   }
-  
-  /* Tombol Pilih File */
-  input[type="file"].profile-file-input {
-    display: block;
-    margin-top: 10px;
+
+  button.submit-btn, button.reset-btn {
     padding: 12px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 100%;
+    font-size: 1rem;
   }
-  
-  /* Responsiveness */
-  @media (max-width: 768px) {
-    .profil-container {
-      padding: 15px;
-    }
-  
-    .profil-content h1 {
-      font-size: 1.5rem;
-    }
-  
-    button.submit-btn, button.reset-btn {
-      padding: 12px 18px;
-    }
-  
-    .profile-image-container {
-      max-width: 150px;
-      max-height: 150px;
-    }
-  
-    .profile-img {
-      width: 100px;
-      height: 100px;
-    }
-  }
+}
