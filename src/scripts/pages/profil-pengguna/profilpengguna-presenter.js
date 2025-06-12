@@ -13,6 +13,9 @@ const ProfilPenggunaPresenter = {
     this._resetBtn = this._form.querySelector('button[type="reset"]');
 
     this._bindEvents();
+
+    // ✅ Panggil untuk mengisi data awal
+    await this._loadProfile();
   },
 
   _bindEvents() {
@@ -20,6 +23,37 @@ const ProfilPenggunaPresenter = {
     this._form.addEventListener('reset', () => this._resetForm());
   },
 
+  // Method untuk memuat data profil
+  async _loadProfile() {
+    try {
+      const userId = localStorage.getItem('user_id') || '5'; // fallback id
+      const model = new AddProfileModel();
+      const result = await model.getProfile(userId);
+
+      if (result.success && result.data) {
+        const data = result.data;
+        this._fullName.value = data.nama_lengkap || '';
+        this._birthDate.value = data.tanggal_lahir || '';
+        this._gender.value = data.jenis_kelamin || '';
+        this._phone.value = data.no_telepon || '';
+        this._address.value = data.alamat || '';
+
+        // Jika ingin tampilkan gambar preview
+        if (data.photo_profile) {
+          const imgEl = document.querySelector('.profile-img');
+          if (imgEl) {
+            imgEl.src = `${BASE_URL}/path-to-images/${data.photo_profile}`; // sesuaikan dengan path kamu
+          }
+        }
+      } else {
+        console.warn('[WARN] Gagal memuat profil:', result.message);
+      }
+    } catch (error) {
+      console.error('❌ Error saat load profil:', error);
+    }
+  },
+
+  // Method untuk menangani submit form
   async _handleSubmit(e) {
     e.preventDefault();
 
@@ -33,8 +67,6 @@ const ProfilPenggunaPresenter = {
       const phone = this._phone.value.trim();
       const address = this._address.value.trim();
       const profileImage = this._profileImage.files[0];
-
-      console.log('[DEBUG] Data input:', { fullName, birthDate, gender, phone, address, profileImage });
 
       if (!fullName || !birthDate || !gender || !phone || !address) {
         throw new Error('❌ Semua kolom harus diisi');
@@ -59,16 +91,8 @@ const ProfilPenggunaPresenter = {
         formData.append('photo_profile', profileImage);
       }
 
-      console.group('[DEBUG] Data FormData yang dikirim');
-      for (const [key, val] of formData.entries()) {
-        console.log(`${key}:`, val);
-      }
-      console.groupEnd();
-
       const addProfileModel = new AddProfileModel();
       const response = await addProfileModel.addProfile(formData);
-
-      console.log('[DEBUG] Response dari server:', response);
 
       if (response && response.success) {
         alert('✅ Profil berhasil diperbarui!');
