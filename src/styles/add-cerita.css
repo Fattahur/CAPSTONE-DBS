@@ -35,20 +35,62 @@ textarea {
   gap: 1rem;
 }
 
-button {
-  /* padding: 0.75rem 1.5rem; */
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  background-color: #3f51b5;
-  color: white;
-  font-weight: bold;
+form button,
+form input[type="button"],
+form input[type="submit"],
+form input[type="file"],
+form select,
+form textarea,
+form input[type="text"] {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 10px 15px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: 0.3s;
 }
 
-button.btn-cancel {
-  background-color: #ccc;
-  color: #333;
+form input[type="text"],
+form textarea,
+form select {
+  background-color: #fff;
 }
+
+form button {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
+
+#upload-container button,
+#camera-preview-container button {
+  width: auto;
+  margin-right: 10px;
+}
+
+#upload-container,
+#camera-preview-container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+video#camera-preview {
+  border-radius: 8px;
+  margin-top: 10px;
+  width: 100%;
+  height: auto;
+}
+
 
 #map-container {
   width: 100%;
