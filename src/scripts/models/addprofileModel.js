@@ -1,26 +1,34 @@
+
 import { BASE_URL } from "../api/api";
 
 export default class AddProfileModel {
-  // Fungsi untuk mengirimkan data profil pengguna ke API
   async addProfile(formData) {
     try {
+      const token = localStorage.getItem('token');
+
       const response = await fetch(`${BASE_URL}/detail-users`, {
-        method: 'POST', // Atau 'PUT' jika API mendukung update dengan PUT
+        method: 'POST',
         body: formData,
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`, // Menggunakan token dari localStorage
-        },
+        headers: token
+          ? { 'Authorization': `Bearer ${token}` }
+          : undefined,
       });
-      
-      
-      const result = await response.json();
-      
-      // Memeriksa apakah request berhasil
+
+      const contentType = response.headers.get('content-type');
+      let result;
+
+      if (contentType && contentType.includes('application/json')) {
+        result = await response.json();
+      } else {
+        const text = await response.text();
+        throw new Error(`Server tidak mengembalikan JSON:\n${text}`);
+      }
+
       if (response.ok) {
         return {
           success: true,
           message: 'Profil berhasil diperbarui!',
-          data: result.data,  // Data profil yang dikembalikan oleh server
+          data: result.data,
         };
       } else {
         return {
@@ -30,7 +38,7 @@ export default class AddProfileModel {
         };
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('❌ Error saat mengirim profil:', error);
       return {
         success: false,
         message: error.message || 'Terjadi kesalahan saat memperbarui profil',

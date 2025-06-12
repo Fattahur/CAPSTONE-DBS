@@ -1,4 +1,4 @@
-import AddProfileModel from '../../models/addprofileModel.js';  // Pastikan pathnya benar
+import AddProfileModel from '../../models/addprofileModel.js';
 
 const ProfilPenggunaPresenter = {
   async init() {
@@ -29,43 +29,57 @@ const ProfilPenggunaPresenter = {
     try {
       const fullName = this._fullName.value.trim();
       const birthDate = this._birthDate.value;
-      const gender = this._gender.value;
+      const gender = this._gender.value.toUpperCase();
       const phone = this._phone.value.trim();
       const address = this._address.value.trim();
-      const profileImage = this._profileImage.files[0];  // Ambil file gambar jika ada
+      const profileImage = this._profileImage.files[0];
+
+      console.log('[DEBUG] Data input:', { fullName, birthDate, gender, phone, address, profileImage });
 
       if (!fullName || !birthDate || !gender || !phone || !address) {
-        throw new Error('Semua kolom harus diisi');
+        throw new Error('❌ Semua kolom harus diisi');
       }
 
-      // Menyusun data menggunakan FormData (terutama untuk gambar)
+      if (!['L', 'P'].includes(gender)) {
+        throw new Error("❌ Jenis kelamin harus 'L' atau 'P'");
+      }
+
+      const userId = localStorage.getItem('user_id') || '5';
+
       const formData = new FormData();
-      formData.append('full_name', fullName);
-      formData.append('birth_date', birthDate);
-      formData.append('gender', gender);
-      formData.append('phone', phone);
-      formData.append('address', address);
-      
+      formData.append('user_id', userId);
+      formData.append('nama_lengkap', fullName);
+      formData.append('tanggal_lahir', birthDate);
+      formData.append('jenis_kelamin', gender);
+      formData.append('no_telepon', phone);
+      formData.append('alamat', address);
+      formData.append('status_aktif', '1');
+
       if (profileImage) {
-        formData.append('profile_image', profileImage);  // Menambahkan file gambar jika ada
+        formData.append('photo_profile', profileImage);
       }
 
-      // Membuat instansi dari AddProfileModel
+      console.group('[DEBUG] Data FormData yang dikirim');
+      for (const [key, val] of formData.entries()) {
+        console.log(`${key}:`, val);
+      }
+      console.groupEnd();
+
       const addProfileModel = new AddProfileModel();
-      
-      // Mengirim data menggunakan addProfile dari instansi AddProfileModel
       const response = await addProfileModel.addProfile(formData);
 
-      if (response.success) {
-        alert('Profil berhasil diperbarui!');
-      } else {
-        alert(response.message);
-      }
+      console.log('[DEBUG] Response dari server:', response);
 
-      this._resetForm();
+      if (response && response.success) {
+        alert('✅ Profil berhasil diperbarui!');
+        this._resetForm();
+      } else {
+        console.warn('[WARN] Gagal menyimpan data:', response.message);
+        alert(response.message || '⚠️ Gagal menyimpan data.');
+      }
     } catch (error) {
-      console.error('Error:', error);
-      alert(error.message || 'Gagal memperbarui profil');
+      console.error('❌ Error saat menyimpan profil:', error);
+      alert(error.message || '❌ Terjadi kesalahan saat mengirim data');
     } finally {
       this._submitBtn.disabled = false;
       this._submitBtn.textContent = 'Simpan';

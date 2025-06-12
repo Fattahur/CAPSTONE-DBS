@@ -34,7 +34,7 @@ export function updateNavbar() {
     header.style.display = "none";
     return;
   } else {
-    navbar.style.display = "flex"; // atau "block" tergantung CSS-mu
+    navbar.style.display = "flex"; 
   }
 
   if (!isLoggedIn) {
@@ -247,8 +247,6 @@ window.addEventListener("scroll", function () {
 });
 
 // kode coba:
-
-
 
 
 
