@@ -1,7 +1,8 @@
+
 import { BASE_URL } from "../api/api";
 
 export default class AddProfileModel {
-  // Method POST untuk mengupdate profil
+  // Fungsi untuk mengirimkan data profil pengguna ke API
   async addProfile(formData) {
     try {
       const token = localStorage.getItem('token');
@@ -9,19 +10,15 @@ export default class AddProfileModel {
       const response = await fetch(`${BASE_URL}/detail-users`, {
         method: 'POST',
         body: formData,
-        headers: token ? { 'Authorization': `Bearer ${token}` } : undefined,
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`, // Menggunakan token dari localStorage
+        },
       });
-
-      const contentType = response.headers.get('content-type');
-      let result;
-
-      if (contentType && contentType.includes('application/json')) {
-        result = await response.json();
-      } else {
-        const text = await response.text();
-        throw new Error(`Server tidak mengembalikan JSON:\n${text}`);
-      }
-
+      
+      
+      const result = await response.json();
+      
+      // Memeriksa apakah request berhasil
       if (response.ok) {
         return {
           success: true,
