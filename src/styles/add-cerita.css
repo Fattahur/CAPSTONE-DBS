@@ -97,7 +97,7 @@ form button:hover {
   border: 1px solid #aaa;
   border-radius: 10px;
   overflow: hidden;
-  padding: 1rem;
+  /* padding: 1rem; */
   background: #f9f9f9;
   margin-top: 1rem;
 }

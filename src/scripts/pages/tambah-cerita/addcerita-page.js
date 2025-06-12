@@ -45,9 +45,8 @@ const AddCeritaPage = {
       </div>
 
       <img id="image-preview" alt="Preview Gambar" style="display: none;" />
-
       <div class="form-group" id="map-container">
-        <h3>Pilih Lokasi</h3>
+        
         <div id="map">Klik untuk memilih lokasi</div>
       </div>
 
