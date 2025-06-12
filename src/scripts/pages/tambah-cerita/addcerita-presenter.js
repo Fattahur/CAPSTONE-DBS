@@ -244,6 +244,7 @@ const AddCeritaPresenter = {
     this._cameraPreviewContainer = document.getElementById('camera-preview-container');
 
     this._selectedLocation = null;
+    this._lokasiNama = '';
     this._stream = null;
     this._imageFile = null;
     this._isCameraActive = false;
@@ -265,26 +266,63 @@ const AddCeritaPresenter = {
   },
 
   _initializeMap() {
-    this._leafletMap = L.map(this._mapElement).setView([-3.2386, 130.1453], 5); // Maluku default
+    this._leafletMap = L.map(this._mapElement).setView([-3.2386, 130.1453], 5); // fallback Maluku
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(this._leafletMap);
 
-    this._leafletMap.on('click', (e) => {
+    // Lokasi otomatis
+    this._leafletMap.locate({ setView: true, maxZoom: 13 });
+
+    this._leafletMap.on('locationfound', async (e) => {
       const { lat, lng } = e.latlng;
       this._selectedLocation = { lat, lng };
 
+      const lokasiLengkap = await this._getAlamatLengkap(lat, lng);
+      this._lokasiNama = lokasiLengkap;
+
       if (this._marker) {
-        this._marker.setLatLng(e.latlng);
+        this._marker.setLatLng([lat, lng]);
       } else {
-        this._marker = L.marker(e.latlng).addTo(this._leafletMap);
+        this._marker = L.marker([lat, lng]).addTo(this._leafletMap);
       }
 
-      this._marker
-        .bindPopup(`Lokasi dipilih:<br>Lat: ${lat.toFixed(4)}<br>Lng: ${lng.toFixed(4)}`)
-        .openPopup();
+      this._marker.bindPopup(`Lokasi terdeteksi:<br>${lokasiLengkap}`).openPopup();
     });
+
+    this._leafletMap.on('locationerror', () => {
+      console.warn('Gagal mendeteksi lokasi otomatis. Klik manual.');
+    });
+
+    this._leafletMap.on('click', async (e) => {
+      const { lat, lng } = e.latlng;
+      this._selectedLocation = { lat, lng };
+
+      const lokasiLengkap = await this._getAlamatLengkap(lat, lng);
+      this._lokasiNama = lokasiLengkap;
+
+      if (this._marker) {
+        this._marker.setLatLng([lat, lng]);
+      } else {
+        this._marker = L.marker([lat, lng]).addTo(this._leafletMap);
+      }
+
+      this._marker.bindPopup(`Lokasi dipilih:<br>${lokasiLengkap}`).openPopup();
+    });
+  },
+
+  async _getAlamatLengkap(lat, lng) {
+    try {
+      const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`);
+      if (!response.ok) throw new Error('Gagal ambil alamat');
+
+      const data = await response.json();
+      return data.display_name || `Lat: ${lat}, Lng: ${lng}`;
+    } catch (error) {
+      console.error('Error ambil alamat:', error);
+      return `Lat: ${lat.toFixed(4)}, Lng: ${lng.toFixed(4)}`;
+    }
   },
 
   async _handleSubmit(e) {
@@ -314,6 +352,7 @@ const AddCeritaPresenter = {
         kategori: category,
         deskripsi: description,
         lokasi: `${this._selectedLocation.lat},${this._selectedLocation.lng}`,
+        lokasi_nama: this._lokasiNama,
         img: this._imageFile || null
       };
 
@@ -425,6 +464,7 @@ const AddCeritaPresenter = {
     this._imagePreview.style.display = 'none';
     this._imageFile = null;
     this._selectedLocation = null;
+    this._lokasiNama = '';
     if (this._marker) {
       this._leafletMap.removeLayer(this._marker);
       this._marker = null;
@@ -446,3 +486,4 @@ const AddCeritaPresenter = {
 };
 
 export default AddCeritaPresenter;
+
