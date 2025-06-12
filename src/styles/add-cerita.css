@@ -1,18 +1,26 @@
 .container_cerita {
   max-width: 800px;
   margin: 0 auto;
-  padding-top: 5rem;
+  padding: 5rem 1rem;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
 .subtitle {
   margin-bottom: 1.5rem;
-  color: #555;
+  color: #666;
+  font-size: 1rem;
 }
 
 label {
   display: block;
   margin-top: 1rem;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #444;
 }
 
 input[type="text"],
@@ -23,97 +31,98 @@ textarea {
   margin-top: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fafafa;
+  transition: border 0.3s ease;
+}
+
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+  border-color: #007bff;
+  outline: none;
 }
 
 textarea {
   resize: vertical;
+  min-height: 120px;
 }
 
-.form-actions {
-  margin-top: 2rem;
-  display: flex;
-  gap: 1rem;
-}
-
-form button,
-form input[type="button"],
-form input[type="submit"],
-form input[type="file"],
-form select,
-form textarea,
-form input[type="text"] {
-  font-family: inherit;
-  font-size: 1rem;
-  padding: 10px 15px;
-  margin-top: 8px;
-  margin-bottom: 16px;
-  width: 100%;
-  box-sizing: border-box;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  transition: 0.3s;
-}
-
-form input[type="text"],
-form textarea,
-form select {
-  background-color: #fff;
-}
-
-form button {
-  background-color: #007bff;
-  color: white;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-}
-
-form button:hover {
-  background-color: #0056b3;
-}
-
+form button[type="submit"],
 #upload-container button,
 #camera-preview-container button {
-  width: auto;
-  margin-right: 10px;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 10px 16px;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover,
+#upload-container button:hover,
+#camera-preview-container button:hover {
+  background-color: #0056b3;
 }
 
 #upload-container,
 #camera-preview-container {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-video#camera-preview {
-  border-radius: 8px;
-  margin-top: 10px;
-  width: 100%;
-  height: auto;
-}
-
-
-#map-container {
-  width: 100%;
-  height: 300px;
-  margin-top: 0.5rem;
-  border: 1px solid #aaa;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-#camera-preview-container {
-  margin-top: 1.5rem;
-  display: none;
-}
-
-#camera-preview {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
+#upload-container button,
+#camera-preview-container button {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 150px;
 }
 
 #image-preview {
+  display: block;
   margin-top: 1rem;
   max-width: 100%;
-  border-radius: 8px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#camera-preview {
+  display: none;
+  width: 100%;
+  max-height: 360px;
+  margin-top: 1rem;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+#map-container {
+  width: 100%;
+  margin-top: 1.5rem;
+  border: 1px solid #aaa;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+#map {
+  width: 100%;
+  height: 500px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* Button transition improvements */
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
