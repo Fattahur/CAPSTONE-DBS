@@ -21,9 +21,10 @@ const AddCeritaPage = {
         <label for="category">Kategori</label>
         <select id="category" name="category" required>
           <option value="">Pilih kategori</option>
-          <option value="sejarah">Sejarah</option>
-          <option value="budaya">Budaya</option>
-          <option value="lokal">Lokal</option>
+          <option value="legenda">Legenda</option>
+          <option value="mitos">Mitos</option>
+          <option value="fabel">Fabel</option>
+          <option value="dongeng">Dongeng</option>
         </select>
       </div>
 

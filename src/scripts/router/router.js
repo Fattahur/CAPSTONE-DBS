@@ -191,15 +191,6 @@ window.addEventListener("load", () => {
 
 
 
-
-
-
-
-
-
-
-
-
 // // kode ini bisa
 // import LandingPage from "../pages/landing-page.js";
 // import LoginPage from "../pages/auth/login/login-page.js";

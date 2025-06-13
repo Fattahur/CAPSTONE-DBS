@@ -1,249 +1,38 @@
-// import { html, render } from 'lit-html';
-// import CeritaBudayaModel from '../../models/ceritaBudayaModel';
-// import CeritaBudayaPresenter from './ceritabudaya-presenter';
-
-// const dummyStories = {
-//   semua: [], // Akan diisi dari API
-//   tarian: [
-//     {
-//       id: 'tarian-1',
-//       image: 'images/dayak.jpg',
-//       title: 'Tarian Tradisional',
-//       desc: 'Tarian suku Dayak yang memiliki nilai magis...',
-//       lokasi: 'Kalimantan',
-//     },
-//   ],
-//   upacara: [
-//     {
-//       id: 'upacara-1',
-//       image: 'images/dayak.jpg',
-//       title: 'Upacara Adat',
-//       desc: 'Upacara tahunan masyarakat suku Dayak...',
-//       lokasi: 'Kalimantan',
-//     },
-//   ],
-// };
-
-// let currentCategory = 'semua';
-
-// const CeritaBudayaPage = {
-//   presenter: null,
-
-//   async render(container) {
-//     const updateContent = () => {
-//       const selectedData = dummyStories[currentCategory];
-
-//       const dynamicSection =
-//         currentCategory === 'semua'
-//           ? html`
-//               <section class="rekomendasi">
-//                 <div class="jdl-rekomendasi"></div>
-//                 <div class="rekomendasi-grid">
-//                   ${selectedData.map(
-//                     (story) => html`
-//                       <div class="card-rekomendasi">
-//                         <img class="img-square" src="${story.gambar}" />
-//                         <p class="judul-cerita">${story.judul}</p>
-//                         <p class="desc">${story.isi?.substring(0, 60) || story.desc?.substring(0, 60)}...</p>
-//                         <p class="lokasi">${story.lokasi || 'Indonesia'}</p>
-//                         <div class="actions">
-//                           <button class="selengkapnya" data-id="${story.id}">Selengkapnya</button>
-//                           <div class="icon-group">
-//                             <span>❤️</span>
-//                             <span>💬</span>
-//                             <span>🔖</span>
-//                           </div>
-//                         </div>
-//                       </div>
-//                     `
-//                   )}
-//                 </div>
-//               </section>
-//             `
-//           : html`
-//               <section class="terpopuler">
-//                 ${selectedData.map(
-//                   (story) => html`
-//                     <div class="terpopuler-img">
-//                       <img
-//                         class="img-square"
-//                         src="${story.image}"
-//                         alt="${story.title}"
-//                       />
-//                       <h3>${story.title}</h3>
-//                       <p>${story.desc}</p>
-//                       <p><strong>Lokasi:</strong> ${story.lokasi}</p>
-//                       <div class="actions">
-//                         <button class="selengkapnya" data-id="${story.id}">Selengkapnya</button>
-//                       </div>
-//                     </div>
-//                   `
-//                 )}
-//               </section>
-//             `;
-
-//       const template = html`
-//         <main class="cerita-container">
-//           <section class="top-bar">
-//             <div class="jdl-cerita-terpopuler">Cerita Budaya</div>
-//             <div class="search-filter-wrapper">
-//               <input
-//                 type="text"
-//                 class="search-input"
-//                 placeholder="Cari cerita budaya..."
-//               />
-//               <select class="filter-select">
-//                 <option value="semua">Semua</option>
-//                 <option value="tarian">Tarian</option>
-//                 <option value="upacara">Upacara</option>
-//               </select>
-//             </div>
-//           </section>
-//           ${dynamicSection}
-//         </main>
-//       `;
-
-//       render(template, container);
-
-//       // Tombol filter
-//       container.querySelector('.filter-select').addEventListener('change', (e) => {
-//         currentCategory = e.target.value;
-//         updateContent();
-//       });
-
-//       // Tombol "Selengkapnya"
-//       container.querySelectorAll('.selengkapnya').forEach((btn) => {
-//         btn.addEventListener('click', (e) => {
-//           const id = e.target.getAttribute('data-id');
-//           if (id) {
-//             window.location.hash = `#/detail?id=${id}`;
-//           } else {
-//             alert('ID cerita tidak tersedia!');
-//           }
-//         });
-//       });
-//     };
-
-//     this.updateContent = updateContent;
-
-//     updateContent();
-//   },
-
-//   async afterRender() {
-//     const model = new CeritaBudayaModel();
-
-//     this.presenter = new CeritaBudayaPresenter(model, {
-//       showStories: (data) => {
-//         dummyStories.semua = data;
-//         this.updateContent(); // Re-render dengan data baru
-//       },
-//       showError: (message) => {
-//         console.error('Gagal memuat cerita:', message);
-//       },
-//     });
-
-//     await this.presenter.loadCeritaBudaya();
-//   },
-// };
-
-// export default CeritaBudayaPage;
-
-
-
-
 
 import { html, render } from 'lit-html';
 import CeritaBudayaModel from '../../models/ceritaBudayaModel';
 import CeritaBudayaPresenter from './ceritabudaya-presenter';
-
-const dummyStories = {
-  semua: [],
-  tarian: [
-    {
-      id: 'tarian-1',
-      image: 'images/dayak.jpg',
-      title: 'Tarian Tradisional',
-      desc: 'Tarian suku Dayak yang memiliki nilai magis...',
-      lokasi: 'Kalimantan',
-    },
-  ],
-  upacara: [
-    {
-      id: 'upacara-1',
-      image: 'images/dayak.jpg',
-      title: 'Upacara Adat',
-      desc: 'Upacara tahunan masyarakat suku Dayak...',
-      lokasi: 'Kalimantan',
-    },
-  ],
-};
+import { likeCerita, unlikeCerita } from '../../models/likeModel';
+import FavoritModel from '../../models/favoritModel';
+import { showToastBerhasil, showToastGagal } from '../../toast/show-toast';
 
 let currentCategory = 'semua';
 let searchQuery = '';
+let kategoriList = ['semua'];
+
+const dummyStories = {
+  semua: [],
+};
 
 const CeritaBudayaPage = {
   presenter: null,
+  userToken: null,
 
   async render(container) {
     const updateContent = () => {
-      const selectedData = dummyStories[currentCategory];
+      const allStories = dummyStories.semua;
 
-      // Filter berdasarkan pencarian
+      const selectedData = currentCategory === 'semua'
+        ? allStories
+        : allStories.filter(
+            (story) =>
+              story.kategori?.toLowerCase() === currentCategory.toLowerCase()
+          );
+
       const filteredData = selectedData.filter((story) => {
         const text = story.judul || story.title || '';
         return text.toLowerCase().includes(searchQuery);
       });
-
-      const dynamicSection =
-        currentCategory === 'semua'
-          ? html`
-              <section class="rekomendasi">
-                <div class="jdl-rekomendasi"></div>
-                <div class="rekomendasi-grid">
-                  ${filteredData.map(
-                    (story) => html`
-                      <div class="card-rekomendasi">
-                        <img class="img-square" src="${story.gambar || story.image}" />
-                        <p class="judul-cerita">${story.judul || story.title}</p>
-                        <p class="desc">
-                          ${(story.isi || story.desc)?.substring(0, 60)}...
-                        </p>
-                        <p class="lokasi">${story.lokasi || 'Indonesia'}</p>
-                        <div class="actions">
-                          <button class="selengkapnya" data-id="${story.id}">Selengkapnya</button>
-                          <div class="icon-group">
-                            <span>❤️</span>
-                            <span>💬</span>
-                            <span>🔖</span>
-                          </div>
-                        </div>
-                      </div>
-                    `
-                  )}
-                </div>
-              </section>
-            `
-          : html`
-              <section class="terpopuler">
-                ${filteredData.map(
-                  (story) => html`
-                    <div class="terpopuler-img">
-                      <img
-                        class="img-square"
-                        src="${story.image || story.gambar}"
-                        alt="${story.title || story.judul}"
-                      />
-                      <h3>${story.title || story.judul}</h3>
-                      <p>${story.desc || story.isi}</p>
-                      <p><strong>Lokasi:</strong> ${story.lokasi}</p>
-                      <div class="actions">
-                        <button class="selengkapnya" data-id="${story.id}">Selengkapnya</button>
-                      </div>
-                    </div>
-                  `
-                )}
-              </section>
-            `;
 
       const template = html`
         <main class="cerita-container">
@@ -266,25 +55,151 @@ const CeritaBudayaPage = {
                   updateContent();
                 }}
               >
-                <option value="semua">Semua</option>
-                <option value="tarian">Tarian</option>
-                <option value="upacara">Upacara</option>
+                ${kategoriList.map(
+                  (kat) => html`
+                    <option value="${kat}" ?selected=${kat === currentCategory}>
+                      ${kat[0].toUpperCase() + kat.slice(1)}
+                    </option>
+                  `
+                )}
               </select>
             </div>
           </section>
-          ${dynamicSection}
+
+          <section class="rekomendasi">
+            <div class="rekomendasi-grid">
+              ${filteredData.map(
+                (story) => html`
+                  <div class="card-rekomendasi">
+                    <img class="img-square" src="${story.gambar}" />
+                    <p class="judul-cerita">${story.judul}</p>
+                    <p class="desc">
+                      ${story.isi?.substring(0, 60)}...
+                    </p>
+                    <p class="lokasi">${story.lokasi || 'Indonesia'}</p>
+                    <div class="actions">
+                      <button class="selengkapnya" data-id="${story.id}">
+                        Selengkapnya
+                      </button>
+                      <div class="icon-group">
+                        <span
+                          class="like-btn"
+                          style="cursor:pointer; color: ${story.isLiked ? 'red' : 'gray'}"
+                          data-id="${story.id}"
+                          title="${story.isLiked ? 'Unlike' : 'Like'} Cerita"
+                        >
+                          ❤️
+                        </span>
+                        <span
+                          class="comment-btn"
+                          style="cursor:pointer;"
+                          data-id="${story.id}"
+                          title="Lihat & Tambahkan Komentar"
+                        >
+                          💬
+                        </span>
+                        <span
+                          class="fav-btn"
+                          style="cursor:pointer; color: ${story.isFavorit ? 'gold' : 'gray'}"
+                          data-id="${story.id}"
+                          title="${story.isFavorit ? 'Hapus dari Favorit' : 'Tambahkan ke Favorit'}"
+                        >
+                          🔖
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                `
+              )}
+            </div>
+          </section>
         </main>
       `;
 
       render(template, container);
 
+      // SELENGKAPNYA
       container.querySelectorAll('.selengkapnya').forEach((btn) => {
         btn.addEventListener('click', (e) => {
           const id = e.target.getAttribute('data-id');
           if (id) {
             window.location.hash = `#/detail?id=${id}`;
           } else {
-            alert('ID cerita tidak tersedia!');
+            showToastGagal('ID cerita tidak tersedia!');
+          }
+        });
+      });
+
+      // KOMENTAR - arahkan ke detail cerita
+      container.querySelectorAll('.comment-btn').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          const id = e.target.getAttribute('data-id');
+          if (id) {
+            window.location.hash = `#/detail?id=${id}`;
+          } else {
+            showToastGagal('ID cerita tidak tersedia!');
+          }
+        });
+      });
+
+      // LIKE Handler
+      container.querySelectorAll('.like-btn').forEach((btn) => {
+        btn.addEventListener('click', async (e) => {
+          const id = e.target.getAttribute('data-id');
+          if (!id) return;
+
+          if (!this.userToken) {
+            showToastGagal('Silakan login terlebih dahulu untuk like/unlike.');
+            return;
+          }
+
+          try {
+            const story = dummyStories.semua.find((s) => s.id == id);
+            if (!story) return;
+
+            if (story.isLiked) {
+              await unlikeCerita(id, this.userToken);
+              story.isLiked = false;
+              showToastBerhasil('Unlike cerita berhasil!');
+            } else {
+              await likeCerita(id, this.userToken);
+              story.isLiked = true;
+              showToastBerhasil('Berhasil menyukai cerita ini!');
+            }
+            updateContent();
+          } catch (err) {
+            showToastGagal('Gagal memproses like/unlike: ' + (err.message || err));
+          }
+        });
+      });
+
+      // FAVORIT Handler
+      container.querySelectorAll('.fav-btn').forEach((btn) => {
+        btn.addEventListener('click', async (e) => {
+          const id = e.target.getAttribute('data-id');
+          if (!id) return;
+
+          if (!this.userToken) {
+            showToastGagal('Silakan login untuk mengelola favorit.');
+            return;
+          }
+
+          try {
+            const story = dummyStories.semua.find((s) => s.id == id);
+            if (!story) return;
+
+            if (story.isFavorit) {
+              await FavoritModel.hapusFavorit(id, this.userToken);
+              story.isFavorit = false;
+              showToastBerhasil('Cerita dihapus dari favorit.');
+            } else {
+              await FavoritModel.tambahFavorit(id, this.userToken);
+              story.isFavorit = true;
+              showToastBerhasil('Cerita ditambahkan ke favorit.');
+            }
+            updateContent();
+          } catch (err) {
+            showToastGagal('Gagal mengelola favorit: ' + (err.message || err));
           }
         });
       });
@@ -295,11 +210,24 @@ const CeritaBudayaPage = {
   },
 
   async afterRender() {
+    this.userToken = localStorage.getItem('token') || null;
+
     const model = new CeritaBudayaModel();
 
     this.presenter = new CeritaBudayaPresenter(model, {
       showStories: (data) => {
+        data.forEach((d) => {
+          if (typeof d.isLiked === 'undefined') d.isLiked = false;
+          if (typeof d.isFavorit === 'undefined') d.isFavorit = false;
+        });
+
         dummyStories.semua = data;
+
+        const kategoriUnik = [
+          ...new Set(data.map((item) => item.kategori?.toLowerCase())),
+        ];
+        kategoriList = ['semua', ...kategoriUnik.filter(Boolean)];
+
         this.updateContent();
       },
       showError: (message) => {

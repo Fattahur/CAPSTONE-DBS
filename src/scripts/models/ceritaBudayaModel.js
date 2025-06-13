@@ -14,6 +14,7 @@ export default class CeritaBudayaModel {
         isi: item.deskripsi,
         gambar: `${gambarBaseUrl}${item.gambar}`,
         lokasi: item.lokasi,
+        kategori: item.kategori,
         namaUser: item.nama_user.trim(),
         tanggalDibuat: new Date(item.created_at),
       }));

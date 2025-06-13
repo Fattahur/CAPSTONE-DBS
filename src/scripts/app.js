@@ -293,14 +293,6 @@ window.addEventListener("scroll", function () {
 
 
 
-
-
-
-
-
-
-
-
 // export function updateNavbar() {
 //   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 //   const role = localStorage.getItem("role");
