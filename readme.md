@@ -97,6 +97,11 @@ Machine Learning:
 ## Penulis
 
 Fattahur Rohim – Mahasiswa Teknik Informatika
+Pangeran Silaen – Mahasiswa Teknik Informatika
+Benyamin Sibarani – Mahasiswa Teknik Informatika
+⁠Mochammad Bagas Syabani Kurniawan – Mahasiswa Teknik Informatika
+Fachruddin Fahma khoiri – Mahasiswa Teknik Informatika
+Fattahur Rohim – Mahasiswa Teknik Informatika
 
 ---
 
