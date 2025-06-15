@@ -1,49 +1,49 @@
-import { openDB } from 'idb';
+// File: src/utils/indexedDBHelper.js
 
-const DB_NAME = 'CeritaBudayaDB';
+const DB_NAME = 'CeritaDB';
 const DB_VERSION = 1;
-const LIKE_STORE = 'likes';
-const FAVORIT_STORE = 'favorit';
+const STORE_NAME = 'heroImages';
 
-const dbPromise = openDB(DB_NAME, DB_VERSION, {
-  upgrade(db) {
-    if (!db.objectStoreNames.contains(LIKE_STORE)) {
-      db.createObjectStore(LIKE_STORE, { keyPath: 'id' });
-    }
-    if (!db.objectStoreNames.contains(FAVORIT_STORE)) {
-      db.createObjectStore(FAVORIT_STORE, { keyPath: 'id' });
-    }
-  },
-});
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(DB_NAME, DB_VERSION);
 
-// === LIKE ===
-export const LikeDB = {
-  async tambah(cerita) {
-    return (await dbPromise).put(LIKE_STORE, cerita);
-  },
-  async hapus(id) {
-    return (await dbPromise).delete(LIKE_STORE, id);
-  },
-  async semua() {
-    return (await dbPromise).getAll(LIKE_STORE);
-  },
-  async cek(id) {
-    return Boolean(await (await dbPromise).get(LIKE_STORE, id));
-  },
-};
+    request.onupgradeneeded = (event) => {
+      const db = event.target.result;
+      if (!db.objectStoreNames.contains(STORE_NAME)) {
+        db.createObjectStore(STORE_NAME, { keyPath: 'id' });
+      }
+    };
 
-// === FAVORIT ===
-export const FavoritDB = {
-  async tambah(cerita) {
-    return (await dbPromise).put(FAVORIT_STORE, cerita);
-  },
-  async hapus(id) {
-    return (await dbPromise).delete(FAVORIT_STORE, id);
-  },
-  async semua() {
-    return (await dbPromise).getAll(FAVORIT_STORE);
-  },
-  async cek(id) {
-    return Boolean(await (await dbPromise).get(FAVORIT_STORE, id));
-  },
-};
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+export async function saveHeroImages(images) {
+  const db = await openDB();
+  const tx = db.transaction(STORE_NAME, 'readwrite');
+  const store = tx.objectStore(STORE_NAME);
+  await store.clear();
+  images.forEach((img, index) => store.put({ id: index, url: img }));
+  await tx.done;
+}
+
+export async function loadHeroImages() {
+  const db = await openDB();
+  const tx = db.transaction(STORE_NAME, 'readonly');
+  const store = tx.objectStore(STORE_NAME);
+  const allImages = [];
+  return new Promise((resolve) => {
+    const cursor = store.openCursor();
+    cursor.onsuccess = (event) => {
+      const cur = event.target.result;
+      if (cur) {
+        allImages.push(cur.value.url);
+        cur.continue();
+      } else {
+        resolve(allImages);
+      }
+    };
+  });
+}

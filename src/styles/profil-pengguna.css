@@ -22,9 +22,9 @@ a {
   padding: 40px;
   border-radius: 12px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-  max-width: 550px;
+  max-width: 1200px;
   margin: 60px auto;
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   align-items: center;
   width: 100%;
@@ -121,7 +121,7 @@ input[type="file"].profile-file-input {
 
 /* Tombol Simpan */
 button.submit-btn {
-  background-color: #18f807;
+  background-color: #7a4318;
   color: white;
   padding: 14px;
   border: none;
@@ -134,12 +134,12 @@ button.submit-btn {
 }
 
 button.submit-btn:hover {
-  background-color: #14c906;
+  background-color: #babbba;
 }
 
 /* Tombol Reset */
 button.reset-btn {
-  background-color: #fd0000;
+  background-color: #FFD54F;
   color: white;
   padding: 14px;
   border: none;
@@ -152,7 +152,7 @@ button.reset-btn {
 }
 
 button.reset-btn:hover {
-  background-color: #c70000;
+  background-color: #babbba;
 }
 
 /* Responsif */
@@ -169,6 +169,7 @@ button.reset-btn:hover {
   .profile-image-container {
     width: 100px;
     height: 100px;
+    border: #333 solid 1px;
   }
 
   .profile-img {

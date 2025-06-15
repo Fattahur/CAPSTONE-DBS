@@ -1,43 +1,73 @@
+
 import { html, render } from 'lit-html';
-import RingkasanPresenter from './ringkasan-presenter.js';
+import { BASE_URL, BASE_IMAGE_URL } from '../../api/api';
 
 const RingkasanPage = {
-  render(container) {
+  async fetchFavoritCerita() {
+    const token = localStorage.getItem('accessToken');
+    try {
+      const response = await fetch(`${BASE_URL}/favorit`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`Gagal mengambil data favorit. Status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      return { data: result.data, error: null };
+    } catch (err) {
+      console.error(err);
+      return { data: [], error: err.message };
+    }
+  },
+
+  async render(container) {
+    render(html`<p class="loading">Memuat data...</p>`, container);
+
+    const { data: favoritCerita, error } = await this.fetchFavoritCerita();
+
     const template = html`
+      
+
       <div class="ringkasan-container">
-        <h1>Ringkasan</h1>
-        <div class="tabs">
-          <button class="tab-button" @click="${() => this.showTab('favorit')}">Favorit</button>
-          <button class="tab-button" @click="${() => this.showTab('minat')}">Minat Anda</button>
-          <button class="tab-button" @click="${() => this.showTab('riwayat')}">Riwayat</button>
-        </div>
 
-        <div class="tab-content" id="favorit">
-          <h2>Favorit</h2>
-          <p>Konten favorit Anda...</p>
-        </div>
 
-        <div class="tab-content" id="minat" style="display:none">
-          <h2>Minat Anda</h2>
-          <p>Konten minat Anda...</p>
-        </div>
+      <div class="tab-bar">
+        <button class="tab-btn active" @click=${() => location.hash = '#/favorit'}>❤️ Favorit</button>
+        <button class="tab-btn" @click=${() => location.hash = '#/like'}>👍 Like</button>
+        <button class="tab-btn" @click=${() => location.hash = '#/cerita-anda'}>📝 Cerita Anda</button>
+      </div>
 
-        <div class="tab-content" id="riwayat" style="display:none">
-          <h2>Riwayat</h2>
-          <p>Konten riwayat Anda...</p>
-        </div>
+
+        ${error
+          ? html`<div class="error">${error}</div>`
+          : favoritCerita.length === 0
+            ? html`<div class="empty">Belum ada cerita favorit</div>`
+            : html`
+              <div class="card-grid">
+                
+                ${favoritCerita.map(item => html`
+                  <div class="card">
+                    <img 
+                      src="${BASE_IMAGE_URL}/${item.gambar}" 
+                      alt="${item.judul}" 
+                      @error=${e => e.target.src = `${BASE_IMAGE_URL}/default.jpg`}
+                    />
+                    <h3>${item.judul}</h3>
+                    <p>${item.deskripsi?.substring(0, 100)}...</p>
+                  </div>
+                `)}
+              </div>
+            `}
       </div>
     `;
 
     render(template, container);
-  },
-
-  showTab(tabName) {
-    const contents = document.querySelectorAll('.tab-content');
-    contents.forEach(content => content.style.display = 'none');
-
-    const activeTab = document.getElementById(tabName);
-    activeTab.style.display = 'block';
   }
 };
 

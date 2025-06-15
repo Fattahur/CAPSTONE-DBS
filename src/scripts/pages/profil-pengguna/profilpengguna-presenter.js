@@ -1,4 +1,6 @@
+
 import AddProfileModel from '../../models/addprofileModel.js';
+import { BASE_URL, BASE_IMAGE_URL } from '../../api/api.js';
 
 const ProfilPenggunaPresenter = {
   async init() {
@@ -12,10 +14,10 @@ const ProfilPenggunaPresenter = {
     this._submitBtn = this._form.querySelector('button[type="submit"]');
     this._resetBtn = this._form.querySelector('button[type="reset"]');
 
+    this._isExistingProfile = false;
     this._bindEvents();
-
-    // ✅ Panggil untuk mengisi data awal
     await this._loadProfile();
+    this._toggleSubmitButton();
   },
 
   _bindEvents() {
@@ -23,37 +25,52 @@ const ProfilPenggunaPresenter = {
     this._form.addEventListener('reset', () => this._resetForm());
   },
 
-  // Method untuk memuat data profil
+  _toggleSubmitButton() {
+    this._submitBtn.textContent = this._isExistingProfile ? 'Update' : 'Tambah';
+  },
+
   async _loadProfile() {
     try {
-      const userId = localStorage.getItem('user_id') || '5'; // fallback id
+      const userId = localStorage.getItem('user_id') || '5';
       const model = new AddProfileModel();
       const result = await model.getProfile(userId);
 
       if (result.success && result.data) {
         const data = result.data;
+
         this._fullName.value = data.nama_lengkap || '';
-        this._birthDate.value = data.tanggal_lahir || '';
+        this._birthDate.value = data.tanggal_lahir
+          ? new Date(data.tanggal_lahir).toISOString().split('T')[0]
+          : '';
         this._gender.value = data.jenis_kelamin || '';
         this._phone.value = data.no_telepon || '';
         this._address.value = data.alamat || '';
 
-        // Jika ingin tampilkan gambar preview
-        if (data.photo_profile) {
-          const imgEl = document.querySelector('.profile-img');
-          if (imgEl) {
-            imgEl.src = `${BASE_URL}/path-to-images/${data.photo_profile}`; // sesuaikan dengan path kamu
-          }
+        const imgEl = document.getElementById('profile-preview');
+
+        if (data.photo_profile && imgEl) {
+          const photoUrl = `${BASE_IMAGE_URL}/${data.photo_profile}`;
+          console.log('📸 Setting foto profil ke:', photoUrl);
+          imgEl.src = photoUrl;
+
+          // 🔁 Tambahkan fallback jika gagal load foto
+          imgEl.onerror = () => {
+            console.warn('❌ Gagal memuat foto, fallback ke default-user.png');
+            imgEl.src = '/default_profile.png';
+          };
         }
+
+        this._isExistingProfile = true;
       } else {
         console.warn('[WARN] Gagal memuat profil:', result.message);
+        this._isExistingProfile = false;
       }
     } catch (error) {
       console.error('❌ Error saat load profil:', error);
+      alert('❌ Gagal mengambil data profil. Cek koneksi atau server.');
     }
   },
 
-  // Method untuk menangani submit form
   async _handleSubmit(e) {
     e.preventDefault();
 
@@ -66,6 +83,7 @@ const ProfilPenggunaPresenter = {
       const gender = this._gender.value.toUpperCase();
       const phone = this._phone.value.trim();
       const address = this._address.value.trim();
+      
       const profileImage = this._profileImage.files[0];
 
       if (!fullName || !birthDate || !gender || !phone || !address) {
@@ -86,17 +104,26 @@ const ProfilPenggunaPresenter = {
       formData.append('no_telepon', phone);
       formData.append('alamat', address);
       formData.append('status_aktif', '1');
-
       if (profileImage) {
         formData.append('photo_profile', profileImage);
       }
 
-      const addProfileModel = new AddProfileModel();
-      const response = await addProfileModel.addProfile(formData);
+      const model = new AddProfileModel();
+      let response;
+
+      if (this._isExistingProfile) {
+        response = await model.updateProfile(formData);
+      } else {
+        response = await model.addProfile(formData);
+      }
 
       if (response && response.success) {
-        alert('✅ Profil berhasil diperbarui!');
-        this._resetForm();
+        alert('✅ Profil berhasil disimpan!');
+
+        // ⏳ Delay sedikit sebelum load ulang profil (untuk pastikan data siap)
+        await new Promise(resolve => setTimeout(resolve, 500));
+        await this._loadProfile();
+        this._toggleSubmitButton();
       } else {
         console.warn('[WARN] Gagal menyimpan data:', response.message);
         alert(response.message || '⚠️ Gagal menyimpan data.');
@@ -106,7 +133,7 @@ const ProfilPenggunaPresenter = {
       alert(error.message || '❌ Terjadi kesalahan saat mengirim data');
     } finally {
       this._submitBtn.disabled = false;
-      this._submitBtn.textContent = 'Simpan';
+      this._toggleSubmitButton();
     }
   },
 

@@ -2,6 +2,8 @@
 import { putAccessToken, putUser } from '../utils/auth.js';
 
 export const BASE_URL = 'https://ceritanusantara.site/api/auth';
+export const BASE_IMAGE_URL = 'https://ceritanusantara.site/uploads';
+
 
 export const authService = {
   async register({ name, email, password }) {
