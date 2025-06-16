@@ -6,6 +6,14 @@ import { likeCerita, unlikeCerita } from '../../models/likeModel';
 import FavoritModel from '../../models/favoritModel';
 import { showToastBerhasil, showToastGagal } from '../../toast/show-toast';
 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+AOS.init({
+  duration: 800,
+  once: false,
+});
+
 let currentCategory = 'semua';
 let searchQuery = '';
 let kategoriList = ['semua'];
@@ -70,7 +78,7 @@ const CeritaBudayaPage = {
             <div class="rekomendasi-grid">
               ${filteredData.map(
                 (story) => html`
-                  <div class="card-rekomendasi">
+                  <div class="card-rekomendasi" data-aos="fade-up">
                     <img class="img-square" src="${story.gambar}" />
                     <p class="judul-cerita">${story.judul}</p>
                     <p class="desc">
@@ -117,6 +125,7 @@ const CeritaBudayaPage = {
       `;
 
       render(template, container);
+      AOS.refresh(); // <== Wajib untuk refresh setelah render
 
       // SELENGKAPNYA
       container.querySelectorAll('.selengkapnya').forEach((btn) => {
@@ -130,7 +139,7 @@ const CeritaBudayaPage = {
         });
       });
 
-      // KOMENTAR - arahkan ke detail cerita
+      // KOMENTAR
       container.querySelectorAll('.comment-btn').forEach((btn) => {
         btn.addEventListener('click', (e) => {
           const id = e.target.getAttribute('data-id');
@@ -142,7 +151,7 @@ const CeritaBudayaPage = {
         });
       });
 
-      // LIKE Handler
+      // LIKE
       container.querySelectorAll('.like-btn').forEach((btn) => {
         btn.addEventListener('click', async (e) => {
           const id = e.target.getAttribute('data-id');
@@ -173,7 +182,7 @@ const CeritaBudayaPage = {
         });
       });
 
-      // FAVORIT Handler
+      // FAVORIT
       container.querySelectorAll('.fav-btn').forEach((btn) => {
         btn.addEventListener('click', async (e) => {
           const id = e.target.getAttribute('data-id');

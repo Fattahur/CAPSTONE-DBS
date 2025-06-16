@@ -1,5 +1,5 @@
 
-import { html, render } from 'lit-html';
+import { html, render } from 'lit';
 import ManajemenPresenter from '../manajemen/manajemen-presenter.js';
 
 const ManajemenPage = {

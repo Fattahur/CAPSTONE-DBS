@@ -176,9 +176,39 @@ const setupNavigation = () => {
     });
 };
 
+
+const appContainer = document.getElementById("main-content");
+
+async function router() {
+  const hash = window.location.hash || "#/beranda";
+
+  if (hash.startsWith("#/detail")) {
+    // await DetailPage.afterRender();
+    appContainer.innerHTML = await DetailPage.render();
+    
+  }
+}
+window.addEventListener("load", router);
+// Tangani perubahan hash untuk SPA navigation
+window.addEventListener("hashchange", router);
+
+
+
 // Event listener utama
 window.addEventListener("hashchange", renderPage);
 window.addEventListener("load", () => {
   renderPage();
   setupNavigation();
 });
+
+
+
+
+
+
+
+// KODE UJICOBA
+
+
+
+

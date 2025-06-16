@@ -122,8 +122,18 @@
     
 
 
-import { html, render } from 'lit-html';
+
+
+
+
+
+
+
+import { html, render } from 'lit';
 import CeritaBudayaModel from '../../models/ceritaBudayaModel.js';
+
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const JelajahPage = {
   allStories: [],
@@ -133,6 +143,8 @@ const JelajahPage = {
 
   async render(container) {
     this.container = container;
+
+    AOS.init({ duration: 800, once: false }); // ✅ Inisialisasi animasi
 
     const selected = this.currentCategory === 'semua'
       ? this.allStories
@@ -180,7 +192,7 @@ const JelajahPage = {
           <div class="rekomendasi-grid">
             ${filteredStories.map(
               (story) => html`
-                <div class="card-rekomendasi">
+                <div class="card-rekomendasi" data-aos="fade-up">
                   <img class="img-square" src="${story.gambar}" alt="${story.judul}" />
                   <p class="judul-cerita">${story.judul}</p>
                   <p class="desc">${story.isi.substring(0, 60)}...</p>
@@ -202,8 +214,8 @@ const JelajahPage = {
     `;
 
     render(template, container);
+    AOS.refresh(); // ✅ Pastikan animasi diaktifkan setelah render
 
-    // Arahkan ke detail cerita jika klik "Selengkapnya"
     container.querySelectorAll('.selengkapnya')?.forEach((btn) => {
       btn.addEventListener('click', (e) => {
         const id = e.target.getAttribute('data-id');
@@ -220,11 +232,8 @@ const JelajahPage = {
 
     if (result.success) {
       this.allStories = result.data;
-
-      // Ambil semua kategori unik
       const kategoriUnik = [...new Set(result.data.map((item) => item.kategori?.toLowerCase()))];
       this.kategoriList = ['semua', ...kategoriUnik.filter(Boolean)];
-
       this.render(container);
     } else {
       render(html`<p style="padding: 1rem;">${result.message}</p>`, container);
@@ -233,3 +242,4 @@ const JelajahPage = {
 };
 
 export default JelajahPage;
+

@@ -1,4 +1,4 @@
-::view-transition-old(root),
+/* ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: fade 300ms ease;
 }
@@ -6,4 +6,20 @@
 @keyframes fade {
   from { opacity: 0.8; }
   to { opacity: 1; }
+} */
+
+
+
+
+form {
+  transition: all 0.3s ease-in-out;
+  opacity: 1;
+}
+form.exit-left {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+form.exit-right {
+  transform: translateX(100%);
+  opacity: 0;
 }

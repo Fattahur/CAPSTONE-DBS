@@ -1,4 +1,5 @@
-import { html, render } from 'lit-html';
+import { html, render } from 'lit';
+
 import AddCeritaPresenter from './addcerita-presenter.js';
 
 const AddCeritaPage = {

@@ -1,5 +1,5 @@
 .ringkasan-container {
-max-width: 1200px;
+max-width: 1205px;
 margin: 0 auto;
   font-family: 'Segoe UI', sans-serif;
 }
@@ -71,4 +71,9 @@ padding-top: 2;
 
 
 
+#isi p {
+  margin-bottom: 1em;
+  text-align: justify;
+  line-height: 1.7;
+}
 

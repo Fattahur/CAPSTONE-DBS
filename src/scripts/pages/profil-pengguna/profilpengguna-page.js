@@ -1,5 +1,6 @@
 
-import { html, render } from 'lit-html';
+import { html, render } from 'lit';
+
 import ProfilPenggunaPresenter from './profilpengguna-presenter.js';
 
 const ProfilPenggunaPage = {

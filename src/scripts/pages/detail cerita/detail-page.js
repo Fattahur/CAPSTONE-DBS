@@ -1,4 +1,4 @@
-// cobaa
+
 import { navigateTo } from '../../utils/navigasi.js';
 
 import DetailCeritaPresenter from '../detail cerita/detail-presenter.js';
@@ -9,12 +9,14 @@ import KomentarModel from '../../models/komentarModel.js';
 
 const DetailPage = {
   async render() {
-    return `
+  console.log('[DetailPage] render() dipanggil');
+  return `
       <section class="detail-container">
         <button class="back-button" id="back-to-landing">
           <i class="fas fa-arrow-left"></i>
         </button>
-        <h2>Detail Cerita</h2>
+        
+        <h2><span id="judul"></span></h2>
         
         <img id="gambar" src="" alt="Gambar Cerita"
           style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);" />
@@ -29,9 +31,8 @@ const DetailPage = {
         </section>
 
         <section class="info-cerita">
-          <p><strong>Judul:</strong> <span id="judul"></span></p>
           <p><strong>Penulis:</strong> <span id="penulis"></span></p>
-          <p><strong>Deskripsi:</strong> <span id="isi"></span></p>
+          <p><span id="isi"></span></p>
         </section>
 
         <section class="map-wrapper">
@@ -48,10 +49,15 @@ const DetailPage = {
           </form>
         </section>
       </section>
+
+      
     `;
+
+    
   },
 
   async afterRender() {
+  console.log('[DetailPage] afterRender() dipanggil');
     const loadLeafletCSS = () => {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
@@ -122,10 +128,15 @@ const DetailPage = {
     const presenter = new DetailCeritaPresenter(view);
     await presenter.loadDetailCerita(id);
 
-    // Tombol Back
-document.getElementById('back-to-landing')?.addEventListener('click', () => {
-  navigateTo('#/beranda');
+document.getElementById('back-to-landing')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  if (document.startViewTransition) {
+    document.startViewTransition(() => history.back());
+  } else {
+    history.back();
+  }
 });
+
 
 
     // Like
@@ -238,8 +249,8 @@ document.getElementById('back-to-landing')?.addEventListener('click', () => {
       const icon = L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/447/447031.png', iconSize: [32, 32] });
       L.marker([defaultLat, defaultLng], { icon }).addTo(map).bindPopup(`<b>${judulCerita}</b>`).openPopup();
     } else {
-      document.getElementById('map-info').innerHTML = '<p class="text-muted">Lokasi cerita tidak tersedia.</p>';
-    }
+    //   document.getElementById('map-info').innerHTML = '<p class="text-muted">Lokasi cerita tidak tersedia.</p>';
+     }
 
     map.locate({ setView: false });
     map.on('locationfound', (e) => {
@@ -250,5 +261,12 @@ document.getElementById('back-to-landing')?.addEventListener('click', () => {
 };
 
 export default DetailPage;
+
+
+
+
+// KODE UJICOBA
+
+
 
 
