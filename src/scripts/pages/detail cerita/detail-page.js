@@ -1,4 +1,4 @@
-
+// cobaa
 import { navigateTo } from '../../utils/navigasi.js';
 
 import DetailCeritaPresenter from '../detail cerita/detail-presenter.js';
