@@ -216,6 +216,76 @@
 // };
 
 
+// kode bisa
+
+// const path = require('path');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const WorkboxPlugin = require('workbox-webpack-plugin');
+
+// const isProduction = process.env.NODE_ENV === 'production';
+
+// module.exports = {
+//   entry: './src/scripts/app.js',
+//   output: {
+//     filename: 'bundle.js',
+//     path: path.resolve(__dirname, 'dist'),
+//     clean: true,
+//   },
+//   module: {
+//     rules: [
+//       {
+//         test: /\.css$/i,
+//         use: ['style-loader', 'css-loader'],
+//       },
+//       {
+//         test: /\.(ttf|otf|eot|woff2?|svg)$/i,
+//         type: 'asset/resource',
+//         generator: {
+//           filename: 'fonts/[name][ext][query]',
+//         },
+//       },
+//     ],
+//   },
+//   plugins: [
+//     new HtmlWebpackPlugin({
+//       template: './src/index.html',
+//     }),
+//     new CopyWebpackPlugin({
+//       patterns: [
+//         {
+//           from: path.resolve(__dirname, 'public'),
+//           to: '.', // Salin semua isi public ke dist/
+//         },
+//         {
+//           from: path.resolve(__dirname, 'public/manifest.json'),
+//           to: 'site.webmanifest', // Rename manifest.json jika perlu
+//         },
+//       ],
+//     }),
+//     ...(isProduction
+//       ? [
+//           new WorkboxPlugin.GenerateSW({
+//             clientsClaim: true,
+//             skipWaiting: true,
+//             cleanupOutdatedCaches: true,
+//             maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+//           }),
+//         ]
+//       : []),
+//   ],
+//   devServer: {
+//     static: {
+//       directory: path.resolve(__dirname, 'dist'),
+//     },
+//     open: true,
+//   },
+//   mode: isProduction ? 'production' : 'development',
+// };
+
+// kode bisa
+
+
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -229,6 +299,7 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
+    publicPath: '/CeritaNusantara/', // ✅ WAJIB untuk GitHub Pages
   },
   module: {
     rules: [
@@ -237,10 +308,10 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(ttf|otf|eot|woff2?|svg)$/i,
+        test: /\.(png|jpe?g|gif|svg|webp|ttf|woff2?|eot|otf)$/i,
         type: 'asset/resource',
         generator: {
-          filename: 'fonts/[name][ext][query]',
+          filename: 'images/[name][ext]',
         },
       },
     ],
@@ -253,11 +324,11 @@ module.exports = {
       patterns: [
         {
           from: path.resolve(__dirname, 'public'),
-          to: '.', // Salin semua isi public ke dist/
+          to: '.', // ✅ salin semua isi public (favicon, gambar, icons)
         },
         {
           from: path.resolve(__dirname, 'public/manifest.json'),
-          to: 'site.webmanifest', // Rename manifest.json jika perlu
+          to: 'site.webmanifest',
         },
       ],
     }),
@@ -268,6 +339,7 @@ module.exports = {
             skipWaiting: true,
             cleanupOutdatedCaches: true,
             maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+            navigateFallback: '/CeritaNusantara/index.html',
           }),
         ]
       : []),
@@ -277,11 +349,14 @@ module.exports = {
       directory: path.resolve(__dirname, 'dist'),
     },
     open: true,
+    compress: true,
+    port: 8080,
+    historyApiFallback: {
+      index: '/CeritaNusantara/index.html',
+    },
   },
   mode: isProduction ? 'production' : 'development',
 };
-
-
 
 
 

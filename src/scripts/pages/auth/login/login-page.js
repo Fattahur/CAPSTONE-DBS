@@ -8,7 +8,7 @@ import { updateNavbar } from '../../../app.js';
 import AuthPresenter from './login-presenter.js';
 import RegisterModel from '../../../models/registerModel.js';
 import { showToastBerhasil, showToastGagal } from '../../../toast/show-toast.js';
-import { showPopup } from '../../../toast/popup.js'; // <- Tambahkan ini
+import { showPopup } from '../../../toast/popup.js'; 
 
 export class LoginPage {
 static async render(container) {
@@ -56,6 +56,7 @@ static async render(container) {
 
 
   static async afterRender() {
+
     AOS.init({ duration: 800, once: true });
 
     const isLoggedIn = localStorage.getItem('isLoggedIn');

@@ -25,13 +25,24 @@ if (
   }
 }
 
+// if ('serviceWorker' in navigator) {
+//   window.addEventListener('load', () => {
+//     navigator.serviceWorker.register('/service-worker.js')
+//       .then((reg) => console.log('✅ Service Worker registered:', reg))
+//       .catch((err) => console.error('❌ Service Worker registration failed:', err));
+//   });
+// }
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('service-worker.js')
+    navigator.serviceWorker.register('/service-worker.js')
       .then((reg) => console.log('✅ Service Worker registered:', reg))
       .catch((err) => console.error('❌ Service Worker registration failed:', err));
   });
 }
+
+
+
 
 export function updateNavbar() {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -168,7 +179,7 @@ if (logoutButton) {
     });
   }
 
-
+  
   // Event listener tombol "Tambah Cerita" untuk user
   const tambahCeritaBtn = document.querySelector(".btn-tambah-cerita");
   if (tambahCeritaBtn) {
